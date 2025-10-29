@@ -1,0 +1,35 @@
+═══════════════════════════════════════════════════════════
+         SIGN-IN DEBUG LOG - 2025-10-29 15:21:25
+═══════════════════════════════════════════════════════════
+Username: yassinehemedi
+═══════════════════════════════════════════════════════════
+
+🔹 [START] 🚀 Tentative de connexion pour : yassinehemedi
+🔹 [STEP 1] Authenticating user...
+
+🔐 JWT TOKEN GENERATED:
+   eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ5YXNzaW5laGVtZWRpI...
+🔹 [STEP 1] ✓ Auth successful. Roles: [ROLE_USER]
+🔹 [STEP 3] Building LoginAttempt...
+
+📝 LOGIN ATTEMPT OBJECT:
+   Type: LoginAttempt
+   toString: LoginAttempt{userId=1, clientIp='165.51.203.210', lat=36.8166, lon=10.3084, timezone='Africa/Tunis', country='Tunisia', countryCode='TN', region='11', regionName='Tunis Governorate', city='La Goulette', attemptTime=2025-10-29T15:21:27.854108300}
+🔹 [STEP 4] Querying top 5 similar logins...
+
+🔍 TOP 5 SIMILAR LOGINS:
+   [1] {score=0.6878108471469265, id=13, login_text=Login from Italy Lombardy Milan timezone Europe/Milan IP 88.12.34.10}
+   [2] {score=0.6790276705636791, id=9, login_text=Login from Spain Madrid Madrid timezone Europe/Madrid IP 88.12.34.6}
+   [3] {score=0.6582413824833981, id=8, login_text=Login from Italy Lazio Rome timezone Europe/Rome IP 88.12.34.5}
+   [4] {score=0.6099541258664383, id=7, login_text=Login from Germany Berlin Berlin timezone Europe/Berlin IP 88.12.34.4}
+   [5] {score=0.5992694628337338, id=4, login_text=Login from France Île-de-France Paris timezone Europe/Paris IP 88.12.34.1}
+🔹 [STEP 5] Checking anomaly with LLM...
+🔹 [LLM REQUEST] ✓ LoginText is valid: Login from Tunisia Tunis Governorate La Goulette timezone Africa/Tunis IP 165.51.203.210
+🔹 [LLM REQUEST] ✓ Similar logins count: 5
+🔹 [LLM CALL] Calling FastAPI at: http://localhost:8001/detect_anomaly
+🔹 [LLM RESPONSE] Status: 200 OK
+🔹 [LLM RESPONSE] Body: {login_text=Login from Tunisia Tunis Governorate La Goulette timezone Africa/Tunis IP 165.51.203.210, anomaly=1, reason=Login from DIFFERENT COUNTRY than all past logins, raw_response={"login_text": "Login from Tunisia Tunis Governorate La Goulette timezone Africa/Tunis IP 165.51.203.210", "anomaly": 1, "reason": "Login from DIFFERENT COUNTRY than all past logins"}}
+🔹 [LLM RESULT] Anomaly value: 1
+
+🤖 FINAL ANOMALY DETECTION RESULT:
+   ⚠️  ANOMALOUS - Login will be saved for analysis

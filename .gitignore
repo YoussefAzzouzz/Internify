@@ -1,0 +1,3 @@
+echo "llm1.py" >> .gitignore
+git add .gitignore
+git commit -m "Ignore llm1.py to prevent secrets being committed"
