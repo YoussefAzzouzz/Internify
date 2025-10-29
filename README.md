@@ -2,37 +2,68 @@
 
 ## Projet Internify par Yassine Hmedi
 
-**Internify** est une plateforme intelligente d’opportunités de stage et d’emploi, inspirée de LinkedIn, mais adaptée aux besoins spécifiques des étudiants, jeunes diplômés, et entreprises.  
-Elle facilite la **mise en relation**, la **communication**, et la **gestion des candidatures** dans un espace numérique sécurisé et intelligent.
-
-La plateforme repose sur des algorithmes avancés (IA, algorithmes d’optimisation, forêts isolées) pour garantir une **authentification sécurisée** ainsi qu’une **recommandation personnalisée** des offres.
+**Internify** est une plateforme intelligente d'opportunités de stage et d'emploi, inspirée de LinkedIn, mais adaptée aux besoins spécifiques des étudiants, jeunes diplômés, et entreprises. Elle facilite la **mise en relation**, la **communication**, et la **gestion des candidatures** dans un espace numérique sécurisé et intelligent.
 
 ---
 
-### ⚙️ Fonctionnalités principales :
+## ⚙️ Fonctionnalités principales
 
-- **CRUD complet** sur les entités suivantes :
-    - Utilisateur (étudiant ou entreprise)
-    - Offre de stage/emploi
-    - Candidature
-    - Messagerie
-    - Réponse (feedback de l'entreprise)
+### 🔐 Authentification & Sécurité
 
-- **Authentification avancée basée sur la géolocalisation** :  
-  La connexion de l’utilisateur est validée à partir de sa position géographique pour plus de sécurité.
+- **Authentification à deux facteurs (2FA)** pour une sécurité renforcée
+- **Détection d'anomalies en temps réel** : Un modèle d'IA analyse les tentatives de connexion en se basant sur :
+  - La localisation géographique
+  - L'adresse IP
+  - Les patterns de comportement
+- **Système d'alerte intelligent** pour les connexions suspectes
 
-- **Authentification intelligente par Machine Learning** :  
-  Utilisation de l’algorithme **Isolation Forest** pour détecter les comportements anormaux et les connexions suspectes.
+### 👤 Gestion des utilisateurs (CRUD)
 
-- **Messagerie temps réel** avec :
-    - Indicateur “En train d’écrire...”
-    - Statut “Vu à HH:MM”
-    - Envoi de fichiers (PDF, images, audio)
-    - Suppression/modification de messages
+- Création, lecture, mise à jour et suppression de profils utilisateurs
+- Gestion complète des comptes étudiants et entreprises
+- Système de rôles et permissions
 
-- **Recommandations d’offres intelligentes** selon le profil de l’utilisateur
+### 🎯 Personnalisation de profil
+
+- Profils détaillés et personnalisables
+
+
+### 🤖 Intelligence Artificielle
+
+- **Modèle LLM** pour l'analyse comportementale des connexions
+- **Détection d'anomalies** basée sur :
+  - Historique de connexion
+  - Géolocalisation
+  - Adresse IP
+  - Patterns temporels
 
 ---
 
-### 🛠️ Technologies utilisées :
+## 🛠️ Technologies utilisées
 
+### Backend
+- **Spring Boot** - Framework principal pour le développement de l'API REST
+- **Spring Security** - Gestion de l'authentification et des autorisations
+- **Spring Data JPA** - Couche d'accès aux données
+
+### Frontend
+- **Angular** - Framework pour le développement de l'interface utilisateur
+- **TypeScript** - Langage de programmation
+- **Angular Material** - Composants UI
+
+### Base de données
+- **MySQL** - Système de gestion de base de données relationnelle
+
+### Intelligence Artificielle
+- **LLM (Large Language Model)** - Analyse des tentatives de connexion et détection d'anomalies
+
+### APIs externes
+- **API de géolocalisation IP** - Pour vérifier la localisation des connexions
+- **API 2FA** - Service d'authentification à deux facteurs
+
+---
+
+## 🚀 Installation
+
+### Prérequis
+```bash
