@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Résumé PDF IA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-bottom: 15px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-download {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .result-section {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid #e0e0e0;
+            display: none;
+        }
+
+        .result-title {
+            font-size: 1.3em;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .summary-output {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            line-height: 1.8;
+            color: #333;
+            border-left: 4px solid #667eea;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .alert {
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border: 2px solid #b3d9ff;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 25px;
+        }
+
+        .info-box p {
+            margin: 5px 0;
+            color: #004085;
+        }
+
+        .info-box strong {
+            color: #002752;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>📄 Test Résumé PDF avec IA</h1>
+            <p class="subtitle">Testez votre fonction de génération de résumé</p>
+
+            <div class="info-box">
+                <p><strong>📌 Instructions:</strong></p>
+                <p>• Entrez l'ID d'un rapport existant dans votre base de données</p>
+                <p>• Cliquez sur "Générer le Résumé" pour tester</p>
+                <p>• Le résumé s'affichera ci-dessous</p>
+            </div>
+
+            <div id="alertContainer"></div>
+
+            <div class="input-group">
+                <label for="reportId">🆔 ID du Rapport</label>
+                <input 
+                    type="number" 
+                    id="reportId" 
+                    placeholder="Exemple: 1" 
+                    min="1"
+                    value="1">
+            </div>
+
+            <button class="btn" onclick="generateSummary()">
+                ✨ Générer le Résumé
+            </button>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p class="loading-text">Génération du résumé en cours...</p>
+                <p style="color: #999; font-size: 0.9em;">Cela peut prendre 10-30 secondes</p>
+            </div>
+
+            <div class="result-section" id="resultSection">
+                <h2 class="result-title">📝 Résumé Généré</h2>
+                <div class="summary-output" id="summaryOutput"></div>
+                <button class="btn btn-download" onclick="downloadSummaryPDF()">
+                    ⬇️ Télécharger le PDF du Résumé
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // URL de votre API backend
+        const API_BASE_URL = 'http://localhost:8089/reports';
+        let currentReportId = null;
+
+        async function generateSummary() {
+            const reportId = document.getElementById('reportId').value;
+
+            if (!reportId || reportId < 1) {
+                showAlert('Veuillez entrer un ID de rapport valide', 'error');
+                return;
+            }
+
+            currentReportId = reportId;
+            showLoading(true);
+            hideResult();
+            clearAlert();
+
+            try {
+                // D'abord, vérifier si le rapport existe
+                const checkResponse = await fetch(`${API_BASE_URL}/${reportId}`);
+                
+                if (!checkResponse.ok) {
+                    throw new Error(`Rapport avec ID ${reportId} n'existe pas`);
+                }
+
+                // Télécharger le PDF du résumé et l'afficher
+                const response = await fetch(`${API_BASE_URL}/resume/${reportId}`);
+
+                if (!response.ok) {
+                    throw new Error(`Erreur lors de la génération: ${response.status}`);
+                }
+
+                const blob = await response.blob();
+                
+                // Lire le texte du PDF pour l'afficher
+                const text = await extractTextFromPDF(blob);
+                
+                if (text && text.trim() !== '') {
+                    showResult(text);
+                    showAlert('✅ Résumé généré avec succès !', 'success');
+                } else {
+                    showAlert('⚠️ Le résumé a été généré mais semble vide. Téléchargez le PDF pour vérifier.', 'success');
+                    showResult('Le résumé a été généré. Cliquez sur le bouton ci-dessous pour télécharger le PDF.');
+                }
+
+            } catch (error) {
+                console.error('Erreur:', error);
+                showAlert(`❌ Erreur: ${error.message}`, 'error');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        async function downloadSummaryPDF() {
+            if (!currentReportId) {
+                showAlert('Veuillez d\'abord générer un résumé', 'error');
+                return;
+            }
+
+            try {
+                showAlert('📥 Téléchargement du PDF en cours...', 'success');
+
+                // Appel à votre endpoint /reports/resume/{reportId}
+                const response = await fetch(`${API_BASE_URL}/resume/${currentReportId}`);
+
+                if (!response.ok) {
+                    throw new Error(`Erreur HTTP: ${response.status}`);
+                }
+
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `resume_report_${currentReportId}.pdf`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+
+                showAlert('✅ PDF téléchargé avec succès !', 'success');
+
+            } catch (error) {
+                console.error('Erreur:', error);
+                showAlert(`❌ Erreur lors du téléchargement: ${error.message}`, 'error');
+            }
+        }
+
+        // Fonction pour extraire le texte d'un PDF blob (approximation simple)
+        async function extractTextFromPDF(blob) {
+            try {
+                // Pour une vraie extraction, vous auriez besoin de pdf.js
+                // Ici on fait une approximation simple
+                const arrayBuffer = await blob.arrayBuffer();
+                const text = new TextDecoder('utf-8').decode(arrayBuffer);
+                
+                // Nettoyer le texte extrait (enlever les caractères de contrôle PDF)
+                const cleanText = text
+                    .replace(/[\x00-\x1F\x7F-\x9F]/g, ' ')
+                    .replace(/\s+/g, ' ')
+                    .trim();
+                
+                return cleanText || 'Résumé généré. Téléchargez le PDF pour voir le contenu complet.';
+            } catch (e) {
+                return 'Résumé généré. Téléchargez le PDF pour voir le contenu complet.';
+            }
+        }
+
+        function showLoading(show) {
+            document.getElementById('loading').style.display = show ? 'block' : 'none';
+        }
+
+        function showResult(summary) {
+            document.getElementById('summaryOutput').textContent = summary;
+            document.getElementById('resultSection').style.display = 'block';
+        }
+
+        function hideResult() {
+            document.getElementById('resultSection').style.display = 'none';
+        }
+
+        function showAlert(message, type) {
+            const alertContainer = document.getElementById('alertContainer');
+            alertContainer.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
+            setTimeout(() => {
+                if (type !== 'success') return; // Keep error messages
+                alertContainer.innerHTML = '';
+            }, 5000);
+        }
+
+        function clearAlert() {
+            document.getElementById('alertContainer').innerHTML = '';
+        }
+
+        // Permettre de soumettre avec Enter
+        document.getElementById('reportId').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                generateSummary();
+            }
+        });
+    </script>
+</body>
+</html>
