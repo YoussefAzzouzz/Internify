@@ -1,48 +1,64 @@
-AI Report Summarizer
-Overview
+📝 AI Report Summarizer
+🚀 Overview
 
-AI Report Summarizer is a Java-based service designed to automatically generate concise summaries of technical or academic reports and export them as PDF documents. The service leverages Azure OpenAI for AI-powered summarization in French and Apache PDFBox for PDF generation.
+AI Report Summarizer is a Java-based service that automatically generates concise summaries of technical or academic reports and exports them as professional PDF documents.
 
-This project allows users to easily transform lengthy reports into clear, structured résumés that highlight objectives, methodology, results, and conclusions.
+Using Azure OpenAI, it produces clear, structured summaries in French, and with Apache PDFBox, it creates well-formatted PDFs suitable for sharing or archiving.
 
-Features
+This tool is perfect for transforming lengthy reports into easy-to-read résumés highlighting objectives, methodology, key results, and conclusions.
 
-AI-powered summarization: Generates structured and professional summaries in French.
+✨ Features
 
-PDF export: Converts summaries into well-formatted PDFs with line wrapping and UTF-8 font support.
+🤖 AI-powered summaries: Generate structured, formal summaries in French.
 
-Handles long reports: Limits input to 8000 characters to ensure smooth AI processing.
+📄 PDF export: Produce clean, readable PDF files with proper UTF-8 font support.
 
-Error handling: Provides meaningful messages if reports are empty, missing, or if AI processing fails.
+⏱️ Handles long reports: Limits input text to 8000 characters for smooth processing.
 
-Usage
+⚠️ Error handling: Provides clear messages if reports are missing, empty, or if AI processing fails.
 
-Generate a résumé as text: The service extracts text from an existing PDF report and produces a concise summary using AI.
+🛠️ Setup
 
-Generate a résumé PDF: The AI-generated text is converted into a PDF with proper formatting and font support.
+Azure OpenAI API Key
 
-Setup
+Required to generate summaries. Configure it in the service.
 
-Azure OpenAI API Key: Required to generate summaries. Configure it in the service.
+Add TrueType Font (recommended)
 
-TrueType Font (recommended): For proper French character support, download DejaVuSans.ttf and place it in the resources folder.
+Download DejaVuSans.ttf for full French character support.
 
-Dependencies: Apache PDFBox and JSON libraries.
+Place it in: src/main/resources/fonts/DejaVuSans.ttf
 
-Notes
+Dependencies
 
-Summaries are limited to 8000 characters for AI input.
+Apache PDFBox
 
-PDFs are dynamically wrapped to fit page width.
+JSON (org.json or similar)
+
+📚 Usage
+
+Generate a résumé as text
+
+Extract text from a report and produce a concise summary using AI.
+
+Generate a résumé PDF
+
+Convert the AI-generated summary into a PDF with proper formatting and font support.
+
+💡 Notes
+
+Summaries are limited to 8000 characters to ensure smooth AI processing.
+
+PDF text is dynamically wrapped to fit page width.
 
 If a TrueType font is not available, the service can fall back to Helvetica, but some French characters may require cleaning.
 
-Example Workflow
+⚡ Example Workflow
 
-Extract text from a report.
+Extract text from a PDF report.
 
 Generate a French résumé using AI.
 
-Export the résumé to a PDF file.
+Export the résumé as a PDF file.
 
-This workflow allows users to quickly create professional summaries for reports stored in the system.
+This makes it quick and easy to create professional summaries from reports stored in your system.
