@@ -1,7 +1,7 @@
-🤖 AI Interaction System (Flask)
+🤖 AI Chat System (Flask)
 🚀 Overview
 
-AI Interaction System is a Flask-based web application that integrates multiple AI models to enhance online communication and user engagement.
+AI Chat System is a Flask-based web application that integrates multiple AI models to enhance online communication and user engagement.
 It combines message toxicity detection, AI-powered suggestions, and friend recommendations in one unified system.
 
 Each module uses a different AI model suited for its task — from Natural Language Processing to Recommendation Learning — making this system a real showcase of applied Machine Learning.
@@ -50,48 +50,56 @@ pandas / numpy
 joblib
 
 Installation
-git clone https://github.com/your-username/ai-interaction-system.git
-cd ai-interaction-system
 pip install -r requirements.txt
-
-Configuration
-
-Add your Gemini API key in an environment variable:
-
-export GOOGLE_API_KEY="your_key_here"
 
 📚 Usage
 🧠 Toxicity Detection
 
-Send a POST request with a message to /api/toxicity:
+Send a POST request with a message to /predict/toxicity:
 
-{ "message": "I hate you" }
+{ "message": "I hate you so much!" }
 
 
 Response:
 
-{ "prediction": "inappropriate", "confidence": 0.91 }
+{ "prediction": "toxic", "raw": 1 }
 
 💬 Message Suggestion
 
-Send a POST request with text (or image/PDF) to /api/suggestion:
+Send a POST request with text (or image/PDF) to /suggest_replies:
 
-{ "message": "Let's meet tmr?" }
+{ "messageType": "TEXT", "content":"Hi, how are you ?" }
 
 
 Response:
 
-{ "suggestion": "Would you like to meet tomorrow afternoon?" }
+{ "replies": [ "- Hey! I'm doing well, thanks for asking. How about you?",
+               "- Hi! I'm good, how are you doing today?",
+               "- Hey there! I'm alright, thanks. What's up with you?" ] }
 
 🤝 Friend Recommendation
 
-Send a GET request to /api/recommendations/<user_id>
+Send a GET request to /predict/recommendation:
+
+[ { "days_since_last_seen": 3,
+    "friendsCount": 4,
+    "id": 1 },
+  { "days_since_last_seen": 2,
+    "friendsCount": 2,
+    "id": 2 },
+  { "days_since_last_seen": 100,
+    "friendsCount": 1,
+    "id": 3 } ]
+
+    
 Response:
 
-{
-  "user": 101,
-  "recommended_friends": [230, 412, 587]
-}
+[ { "id": 1,
+    "recommended": true },
+  { "id": 2,
+    "recommended": false },
+  { "id": 3,
+    "recommended": false } ]
 
 ⚡ Example Workflow
 
