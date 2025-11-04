@@ -1,4 +1,4 @@
-### 🤖 AI Chat System (Flask)
+# 🤖 AI Chat System (Flask)
 ## 🚀 Overview
 
 AI Chat System is a Flask-based web application that integrates multiple AI models to enhance online communication and user engagement.
@@ -8,7 +8,7 @@ Each module uses a different AI model suited for its task — from Natural Langu
 
 ## ✨ Features
 
-# 🧠 Toxicity Detection (SVM)
+### 🧠 Toxicity Detection (SVM)
 
 Detects and blocks inappropriate or toxic messages in real time.
 
@@ -16,7 +16,7 @@ Trained on the Jigsaw Toxic Comment dataset from Kaggle.
 
 Uses TF-IDF vectorization and a Support Vector Machine (SVM) classifier.
 
-# 💬 Message Suggestion (Gemini)
+### 💬 Message Suggestion (Gemini)
 
 Suggests responses or improvements to user messages using Google Gemini API.
 
@@ -24,7 +24,7 @@ Can process text, images, and PDF inputs for contextual suggestions.
 
 Helps users rephrase or enrich their messages intelligently.
 
-# 🤝 Friend Recommendation (XGBoost)
+### 🤝 Friend Recommendation (XGBoost)
 
 Recommends top 3 potential friends based on engagement scores.
 
@@ -53,7 +53,7 @@ Installation
 pip install -r requirements.txt
 
 ## 📚 Usage
-# 🧠 Toxicity Detection
+### 🧠 Toxicity Detection
 
 Send a POST request with a message to /predict/toxicity:
 
@@ -64,7 +64,7 @@ Response:
 
 { "prediction": "toxic", "raw": 1 }
 
-# 💬 Message Suggestion
+### 💬 Message Suggestion
 
 Send a POST request with text (or image/PDF) to /suggest_replies:
 
@@ -77,7 +77,7 @@ Response:
                "- Hi! I'm good, how are you doing today?",
                "- Hey there! I'm alright, thanks. What's up with you?" ] }
 
-# 🤝 Friend Recommendation
+### 🤝 Friend Recommendation
 
 Send a GET request to /predict/recommendation:
 
