@@ -1,0 +1,97 @@
+/* Container for the form */
+.offer-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Form Title */
+  .form-title {
+    font-size: 28px;
+    color: #003366;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Form Group Styling */
+  .offer-form div {
+    margin-bottom: 15px;
+  }
+  
+  .offer-form label {
+    font-size: 16px;
+    color: #333;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 8px;
+  }
+  
+  /* Input and Textarea Styling */
+  .offer-form input[type="text"],
+  .offer-form input[type="date"],
+  .offer-form textarea,
+  .offer-form input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    background-color: #fff;
+    color: #333;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .offer-form input[type="text"]:focus,
+  .offer-form input[type="date"]:focus,
+  .offer-form textarea:focus,
+  .offer-form input[type="file"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+    outline: none;
+  }
+  
+  /* Button Styling */
+  button[type="submit"] {
+    width: 100%;
+    padding: 14px;
+    background-color: #28a745;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .offer-form {
+      padding: 15px;
+    }
+  
+    .form-title {
+      font-size: 24px;
+    }
+  
+    .offer-form input[type="text"],
+    .offer-form input[type="date"],
+    .offer-form textarea {
+      font-size: 14px;
+    }
+  
+    button[type="submit"] {
+      font-size: 16px;
+    }
+  }
+  

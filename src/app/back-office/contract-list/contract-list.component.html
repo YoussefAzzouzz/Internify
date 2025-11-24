@@ -1,0 +1,86 @@
+<!-- Main Content -->
+<div class="main-content d-flex justify-content-center align-items-center"
+     style="padding-top: 100px; min-height: 100vh;">
+
+  <div class="container text-center"> <!-- Centered Container -->
+
+    <router-outlet>
+
+      <div class="contract-container">
+        <div class="card shadow-lg p-5">
+          <h2 class="contract-title">All Contracts</h2>
+
+          <!-- Search Filters Section -->
+          <div class="contract-search">
+            <div class="row justify-content-center">
+              <!-- Contract ID Filter -->
+              <div class="col-md-4 mb-3">
+                <label for="contractId">Contract ID</label>
+                <input type="number" class="form-control" id="contractId" [(ngModel)]="idFilter" />
+              </div>
+              <!-- Status Filter -->
+              <div class="col-md-4 mb-3">
+                <label for="status">Status</label>
+                <select class="form-control" id="status" [(ngModel)]="statusFilter">
+                  <option value="">-- Select Status --</option>
+                  <option value="PENDING">PENDING</option>
+                  <option value="SIGNED">SIGNED</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Search Button -->
+            <div class="d-flex justify-content-center mt-3">
+              <button class="btn btn-primary" (click)="applyFilters()">Search</button>
+            </div>
+          </div>
+
+          <!-- Contracts Table -->
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover contract-table">
+              <thead class="thead-dark">
+              <tr>
+                <th>ID</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Status</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let contract of contracts | slice:(currentPage-1)*itemsPerPage:(currentPage)*itemsPerPage">
+                <td>{{ contract.id }}</td>
+                <td>{{ contract.startDate | date }}</td>
+                <td>{{ contract.endDate | date }}</td>
+                <td>
+                    <span class="badge" [ngClass]="getStatusClass(contract.status)">
+                      {{ contract.status }}
+                    </span>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pagination -->
+      <div class="d-flex justify-content-center mt-3">
+        <pagination
+          [totalItems]="contracts.length"
+          [(ngModel)]="currentPage"
+          [itemsPerPage]="itemsPerPage"
+          (pageChanged)="pageChanged($event)">
+        </pagination>
+      </div>
+
+      <!-- Chart -->
+      <div class="chart-container mt-5">
+        <h3>📊 Contracts by Status (Chart)</h3>
+        <canvas id="contractChart"></canvas>
+      </div>
+
+    </router-outlet>
+
+  </div> <!-- End Centered Container -->
+
+</div> <!-- End Main Content -->

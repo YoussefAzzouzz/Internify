@@ -1,0 +1,15 @@
+.unauthorized-container {
+    text-align: center;
+    margin-top: 50px;
+  }
+  
+  .unauthorized-container h1 {
+    color: #e74c3c;
+  }
+  
+  .unauthorized-container a {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  

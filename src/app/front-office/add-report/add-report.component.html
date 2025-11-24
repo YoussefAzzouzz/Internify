@@ -1,0 +1,13 @@
+
+
+<div class="upload-container">
+  <h2>Upload Your Report</h2>
+  <label class="file-input-label">
+    <input type="file" (change)="onFileSelected($event)" accept=".pdf">
+    Choose a PDF File
+  </label>
+  <button class="upload-button" (click)="uploadReport()" [disabled]="!selectedFile">
+    Upload
+  </button>
+  <p *ngIf="message" class="upload-message">{{ message }}</p>
+</div>

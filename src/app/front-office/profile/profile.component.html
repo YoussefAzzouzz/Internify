@@ -1,0 +1,199 @@
+<p>profile works!</p>
+<div class="container">
+  <header class="jumbotron">
+    <h3>
+      <strong>{{ currentUser.username }}</strong> Profile
+    </h3>
+  </header>
+
+  <div class="card" style="width: 18rem;">
+    <img
+      id="profile-img"
+      [src]="logocomsomitounsi"
+      alt=""
+      height="300px"
+      title="Tswiret Consomi Tounsi"
+      class="profile-img-card"
+    />
+    <div class="card-body">
+      <form [formGroup]="profileForm" (ngSubmit)="OnSubmit()">
+        
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            id="username"
+            type="text"
+            class="form-control"
+            formControlName="username"
+            placeholder="Username"
+            
+            required
+          />
+          <div *ngIf="profileForm.get('username')?.touched && profileForm.get('username')?.invalid">
+            <small *ngIf="profileForm.get('username')?.errors?.['required']">Username is required.</small>
+            <small *ngIf="profileForm.get('username')?.errors?.['maxlength']">Username is too long.</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            id="email"
+            type="email"
+            class="form-control"
+            formControlName="email"
+            placeholder="Email"
+           
+            required
+          />
+          <div *ngIf="profileForm.get('email')?.touched && profileForm.get('email')?.invalid">
+            <small *ngIf="profileForm.get('email')?.errors?.['required']">Email is required.</small>
+            <small *ngIf="profileForm.get('email')?.errors?.['email']">Enter a valid email.</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            id="password"
+            type="password"
+            class="form-control"
+            formControlName="password"
+            placeholder="New Password"
+          />
+          <div *ngIf="profileForm.get('password')?.touched && profileForm.get('password')?.invalid">
+            <small *ngIf="profileForm.get('password')?.errors?.['required']">Password is required.</small>
+            <small *ngIf="profileForm.get('password')?.errors?.['minlength']">Password should be at least 6 characters long.</small>
+          </div>
+
+        </div>
+
+        <div class="entreprise-section" *ngIf="isEntreprise">
+          <h2>Entreprise Information</h2>
+          <form [formGroup]="EntrepriseForm" (ngSubmit)="OnSubmit()">
+            <div class="form-group">
+              <label>Company Description:</label>
+              <input
+                type="text"
+                formControlName="companyDescription"
+                class="form-control"
+                [ngClass]="{'is-invalid': EntrepriseForm.get('companyDescription')?.invalid && (EntrepriseForm.get('companyDescription')?.dirty || EntrepriseForm.get('companyDescription')?.touched)}"
+              />
+              <div *ngIf="EntrepriseForm.get('companyDescription')?.invalid && (EntrepriseForm.get('companyDescription')?.dirty || EntrepriseForm.get('companyDescription')?.touched)" class="invalid-feedback">
+                Company Description is required.
+              </div>
+            </div>
+        
+            <div class="form-group">
+              <label>Address:</label>
+              <input
+                type="text"
+                formControlName="address"
+                class="form-control"
+                [ngClass]="{'is-invalid': EntrepriseForm.get('address')?.invalid && (EntrepriseForm.get('address')?.dirty || EntrepriseForm.get('address')?.touched)}"
+              />
+              <div *ngIf="EntrepriseForm.get('address')?.invalid && (EntrepriseForm.get('address')?.dirty || EntrepriseForm.get('address')?.touched)" class="invalid-feedback">
+                Address is required.
+              </div>
+            </div>
+        
+            <div class="form-group">
+              <label>Contact Number:</label>
+              <input
+                type="text"
+                formControlName="contactNumber"
+                class="form-control"
+                [ngClass]="{'is-invalid': EntrepriseForm.get('contactNumber')?.invalid && (EntrepriseForm.get('contactNumber')?.dirty || EntrepriseForm.get('contactNumber')?.touched)}"
+              />
+              <div *ngIf="EntrepriseForm.get('contactNumber')?.invalid && (EntrepriseForm.get('contactNumber')?.dirty || EntrepriseForm.get('contactNumber')?.touched)" class="invalid-feedback">
+                Contact Number must be a number and is required.
+              </div>
+            </div>
+        
+            <div class="form-group">
+              <label>Industry:</label>
+              <input
+                type="text"
+                formControlName="industry"
+                class="form-control"
+                [ngClass]="{'is-invalid': EntrepriseForm.get('industry')?.invalid && (EntrepriseForm.get('industry')?.dirty || EntrepriseForm.get('industry')?.touched)}"
+              />
+              <div *ngIf="EntrepriseForm.get('industry')?.invalid && (EntrepriseForm.get('industry')?.dirty || EntrepriseForm.get('industry')?.touched)" class="invalid-feedback">
+                Industry is required.
+              </div>
+            </div>
+        
+            <div class="form-group">
+              <label>Company Website:</label>
+              <input
+                type="text"
+                formControlName="companyWebsite"
+                class="form-control"
+                [ngClass]="{'is-invalid': EntrepriseForm.get('companyWebsite')?.invalid && (EntrepriseForm.get('companyWebsite')?.dirty || EntrepriseForm.get('companyWebsite')?.touched)}"
+              />
+              <div *ngIf="EntrepriseForm.get('companyWebsite')?.invalid && (EntrepriseForm.get('companyWebsite')?.dirty || EntrepriseForm.get('companyWebsite')?.touched)" class="invalid-feedback">
+                A valid company website is required.
+              </div>
+            </div>
+        
+           
+      
+        
+
+            <button type="submit" class="btn btn-primary" [disabled]="profileForm.invalid || (isEntreprise && EntrepriseForm.invalid)">Update Profile</button>
+          </form>
+        </div>
+
+        <!-- JobSeeker Form (Only for ROLE_USER) -->
+      <div *ngIf="isUser">
+        <h2>Job Seeker Details</h2>
+        <form [formGroup]="JobSeekerForm" (ngSubmit)="OnSubmit()">
+          <div class="form-group">
+            <label for="resume">Resume</label>
+            <input type="text" id="resume" formControlName="resume" class="form-control" />
+            <div *ngIf="JobSeekerForm.get('resume')?.invalid && JobSeekerForm.get('resume')?.touched" class="text-danger">
+              Resume is required.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="skills">Skills</label>
+            <input type="text" id="skills" formControlName="skills" class="form-control" />
+            <div *ngIf="JobSeekerForm.get('skills')?.invalid && JobSeekerForm.get('skills')?.touched" class="text-danger">
+              Skills are required.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="education">Education</label>
+            <input type="text" id="education" formControlName="education" class="form-control" />
+            <div *ngIf="JobSeekerForm.get('education')?.invalid && JobSeekerForm.get('education')?.touched" class="text-danger">
+              Education is required.
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" [disabled]="profileForm.invalid || (JobSeekerForm.invalid)">Update Profile</button>
+        </form>
+      </div>
+        
+
+
+        <!-- Conditional Form for Entreprise or JobSeeker -->
+      
+        <button type="submit" class="btn btn-primary" *ngIf="showAdminBoard">Update Profile</button>
+
+         <div *ngIf="errorMessage" class="error-message">
+          <div class="error-icon">⚠️</div>
+          <div class="error-text">{{ errorMessage }}</div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+<ng-template #loggedOut>
+  Please login.
+</ng-template>

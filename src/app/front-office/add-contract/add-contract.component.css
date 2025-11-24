@@ -1,0 +1,181 @@
+.contract-form-container {
+  width: 50%;
+  margin: 40px auto;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background: #fff;
+  text-align: center;
+}
+
+h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+label {
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+input, select {
+  width: 80%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.submit-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.submit-btn:hover {
+  background-color: #0056b3;
+}
+/* Navbar Styles */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(4, 59, 92, 1); /* Semi-transparent dark blue */
+  backdrop-filter: blur(10px); /* Subtle background blur */
+  padding: 20px 50px; /* Increase padding for larger spacing */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Left section with logo and app name */
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Space between logo and app name */
+}
+
+.navbar-logo .logo {
+  height: 80px; /* Increase logo size */
+  transition: transform 0.3s ease;
+}
+
+.app-name {
+  font-size: 50px; /* App name font size */
+  color: white;
+  font-weight: 500; /* Make app name bold */
+  font-family: Candara; /* Use a professional font */
+  letter-spacing: 2px; /* Add space between letters */
+  transition: transform 0.3s ease;
+}
+
+/* Navbar Links */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 30px; /* Increase spacing between links */
+}
+
+.nav-link {
+  text-decoration: none;
+  font-size: 20px; /* Increase font size for links */
+  color: white;
+  font-weight: 600; /* Make font weight bolder */
+  padding: 12px 25px; /* Increase padding to make the buttons bigger */
+  border-radius: 25px;
+  transition: color 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #ffcc00;
+  background-color: rgba(255, 204, 0, 0.2);
+  transform: translateY(-3px);
+}
+
+/* Search Bar */
+.search-bar {
+  padding: 10px 20px; /* Increase padding for search bar */
+  font-size: 18px; /* Increase font size */
+  border-radius: 25px;
+  border: none;
+  outline: none;
+  width: 250px; /* Increase width */
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.search-bar:focus {
+  background-color: rgba(255, 255, 255, 0.3);
+  width: 350px;
+}
+
+/* Navbar Toggler (for mobile) */
+.navbar-toggler {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 30px; /* Increase size of the hamburger icon */
+  color: white;
+  cursor: pointer;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar-right {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    gap: 20px; /* Increase gap between links */
+    align-items: flex-start;
+  }
+
+  .navbar-right.show {
+    display: flex;
+  }
+
+  .navbar-toggler {
+    display: block;
+  }
+
+  .nav-link {
+    font-size: 20px; /* Increase font size for mobile */
+    width: 100%;
+    padding: 15px 25px; /* Increase padding for mobile */
+    text-align: left;
+  }
+
+  .nav-link:hover {
+    background-color: rgba(255, 204, 0, 0.3);
+  }
+
+  .search-bar {
+    width: 100%;
+    font-size: 20px; /* Increase font size for mobile */
+  }
+}
+
+/* Main Content */
+.main-content {
+  margin-top: 90px; /* Increase margin for main content */
+  padding: 20px;
+  transition: margin-top 0.3s ease;
+}

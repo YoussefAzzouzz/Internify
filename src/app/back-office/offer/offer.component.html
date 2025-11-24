@@ -1,0 +1,31 @@
+<div class="search-form">
+    <h3>Search Offers</h3>
+    <input type="text" (input)="onSearchInput($event)" placeholder="Rechercher une offre..." class="form-control">
+  </div>
+
+  <div class="container mt-4">
+    <h2 class="demand-list-title">Offer List</h2>
+
+    <!-- No offers available -->
+    <div *ngIf="offers.length === 0" class="alert alert-warning">
+      No offers available.
+    </div>
+
+    <!-- List of offers -->
+    <ul class="demand-list" *ngIf="offers.length > 0">
+      <li *ngFor="let offer of offers" class="demand-item">
+        <div class="demand-info">
+          <h3 class="demand-title">{{offer.id}} {{ offer.title }}</h3>
+          <p class="demand-description"><strong>Description:</strong> {{ offer.description }}</p>
+        </div>
+        <div class="demand-actions">
+          <button class="btn btn-view" [routerLink]="['/back-office/details-offer', offer.id]">View Details</button>
+          <button class="btn btn-update" [routerLink]="['/back-office/edit-offer', offer.id]">Edit</button>
+          <button class="btn btn-delete" (click)="deleteOffer(offer.id)">Delete</button>
+        </div>
+      </li>
+    </ul>
+
+    <!-- Add new offer button -->
+    <button class="btn btn-add" [routerLink]="['/back-office/add-offer-image']">Add New Offer</button>
+  </div>

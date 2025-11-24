@@ -1,0 +1,166 @@
+<br>
+<div class="message-container">
+  <h2>{{ conversation.users[0].id === userId ? conversation.users[1].username : conversation.users[0].username }}</h2>
+
+  <div class="pinned-messages" *ngIf="hasPinnedMessages">
+    <h3>Pinned Messages</h3>
+    <ul class="message-list" style="max-height: 200px;">
+      <li *ngFor="let message of messages">
+        <div class="sender-message" *ngIf="message.isPinned">
+          <button (click)="pinMessage(message)" class="button pin-button">
+            {{ message.isPinned ? 'Unpin' : 'Pin' }}
+          </button>
+          <span *ngIf="!message.attachmentUrl && message.content !== 'Deleted message'">{{ message.content }}</span>
+
+          <a *ngIf="message.attachmentUrl && message.messageType=='IMAGE' && message.content !== 'Deleted message'" style="align-self: center"
+             [href]="'http://localhost:8099/internify/messages/upload/' + message.attachmentUrl.split('/').pop()"
+             download>
+            <img [src]="'http://localhost:8099/internify/messages/upload/' + message.attachmentUrl.split('/').pop()"
+                 alt="Attachment"
+                 class="message-image" />
+          </a>
+
+          <div *ngIf="message.attachmentUrl && message.messageType=='PDF' && message.content !== 'Deleted message'" class="pdf-container" style="align-self: center">
+            <a class="pdf-link" [href]="'http://localhost:8099/internify/messages/upload/' + message.attachmentUrl.split('/').pop()" download>
+              {{ message.attachmentUrl.split('/').pop() }} <!-- Display the file name -->
+            </a>
+          </div>
+
+          <audio *ngIf="message.attachmentUrl && message.messageType === 'AUDIO' && message.content !== 'Deleted message'" controls>
+            <source [src]="'http://localhost:8099/internify/messages/upload/' + message.attachmentUrl.split('/').pop()" type="audio/wav">
+            Your browser does not support the audio element.
+          </audio>
+
+          <div class="button-container">
+            <div class="message-status">
+              <span>{{ message.status }}:</span>
+              <span>
+                {{ message.status === 'SENT' ? (message.timestamp | date: 'dd/MM/yyyy HH:mm') : (message.readAt ? (message.readAt | date: 'dd/MM/yyyy HH:mm') : 'Not read') }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <ul class="message-list" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+    <li *ngIf="messages.length === 0" class="no-messages">No messages yet</li>
+
+    <li *ngFor="let message of messages">
+      <ng-container *ngIf="message.content !== 'Deleted message' || message.receiver.id === userId">
+        <div *ngIf="message.sender.id === userId" class="sender-message">
+          <span *ngIf="editingMessageId !== message.id && !message.attachmentUrl && message.content !== 'Deleted message'">{{ message.content }}</span>
+
+          <a *ngIf="message.attachmentUrl && message.messageType=='IMAGE' && message.content !== 'Deleted message'" style="align-self: center"
+             [href]="'http://localhost:8099/internify/messages/upload/' + message.attachmentUrl.split('/').pop()"
+             download>
+            <img [src]="'http://localhost:8099/internify/messages/upload/' + message.attachmentUrl.split('/').pop()"
+                 alt="Attachment"
+                 class="message-image" />
+          </a>
+
+          <div *ngIf="message.attachmentUrl && message.messageType=='PDF' && message.content !== 'Deleted message'" class="pdf-container" style="align-self: center">
+            <a class="pdf-link" [href]="'http://localhost:8099/internify/messages/upload/' + message.attachmentUrl.split('/').pop()" download>
+              {{ message.attachmentUrl.split('/').pop() }} <!-- Display the file name -->
+            </a>
+          </div>
+
+          <audio *ngIf="message.attachmentUrl && message.messageType === 'AUDIO' && message.content !== 'Deleted message'" controls>
+            <source [src]="'http://localhost:8099/internify/messages/upload/' + message.attachmentUrl.split('/').pop()" type="audio/wav">
+            Your browser does not support the audio element.
+          </audio>
+
+          <input *ngIf="editingMessageId === message.id"
+                 type="text"
+                 [(ngModel)]="editedMessageContent"
+                 placeholder="Edit your message" class="edit-input" />
+          <div class="button-container">
+            <button *ngIf="editingMessageId === message.id" (click)="submitEdit()" class="button">Submit</button>
+            <button *ngIf="editingMessageId === message.id" (click)="cancelEdit()" class="button">Cancel</button>
+            <button *ngIf="editingMessageId !== message.id && message.attachmentUrl==null" (click)="startEditing(message)" class="button">Edit</button>
+            <button *ngIf="editingMessageId !== message.id" (click)="deleteMessage(message.id)" class="button">Delete</button>
+            <button (click)="pinMessage(message)" class="button pin-button" *ngIf="message.content !== 'Deleted message'" >
+              {{ message.isPinned ? 'Unpin' : 'Pin' }}
+            </button>
+          </div>
+          <div class="message-status">
+            <span>{{ message.status }}:</span>
+            <span>
+              {{ message.status === 'SENT' ? (message.timestamp | date: 'dd/MM/yyyy HH:mm') : (message.readAt ? (message.readAt | date: 'dd/MM/yyyy HH:mm') : 'Not read') }}
+            </span>
+          </div>
+        </div>
+
+        <div *ngIf="message.sender.id !== userId" class="receiver-message">
+          <span *ngIf="editingMessageId !== message.id && !message.attachmentUrl && message.content !== 'Deleted message'">{{ message.content }}</span>
+
+          <a *ngIf="message.attachmentUrl && message.messageType=='IMAGE' && message.content !== 'Deleted message' "
+             [href]="'http://localhost:8099/internify/messages/upload/' + message.attachmentUrl.split('/').pop()"
+             download>
+            <img [src]="'http://localhost:8099/internify/messages/upload/' + message.attachmentUrl.split('/').pop()"
+                 alt="Attachment"
+                 class="message-image" />
+          </a>
+
+          <div *ngIf="message.attachmentUrl && message.messageType=='PDF' && message.content !== 'Deleted message'" class="pdf-container">
+            <a class="pdf-link" [href]="'http://localhost:8099/internify/messages/upload/' + message.attachmentUrl.split('/').pop()" download>
+              {{ message.attachmentUrl.split('/').pop() }} <!-- Display the file name -->
+            </a>
+          </div>
+
+          <audio *ngIf="message.attachmentUrl && message.messageType === 'AUDIO' && message.content !== 'Deleted message'" controls>
+            <source [src]="'http://localhost:8099/internify/messages/upload/' + message.attachmentUrl.split('/').pop()" type="audio/wav">
+            Your browser does not support the audio element.
+          </audio>
+
+          <div *ngIf="editingMessageId !== message.id && message.content === 'Deleted message'" class="deleted-message">{{ message.content }}</div>
+          <div class="button-container">
+            <button (click)="pinMessage(message)" class="button pin-button" *ngIf="message.content !== 'Deleted message'">
+              {{ message.isPinned ? 'Unpin' : 'Pin' }}
+            </button>
+          </div>
+          <div class="button-container">
+            <div class="message-status">
+              <span>{{ message.status }}: </span>
+              <span>{{ message.status === 'SENT' ? (message.timestamp | date: 'dd/MM/yyyy HH:mm') : (message.readAt ? (message.readAt | date: 'dd/MM/yyyy HH:mm') : 'Not read') }}</span>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </li>
+  </ul>
+
+  <div class="input-container">
+    <input type="text" [(ngModel)]="newMessageContent"
+           placeholder="Your message" class="new-message-input" />
+    <button (click)="sendMessage()" class="button send-button">Send</button>
+    <button (click)="toggleRecording()" class="button send-button">
+      {{ isRecording ? 'Stop' : 'Record' }}
+    </button>
+  </div>
+
+  <div class="file-upload-container">
+    <input type="file" (change)="onFileSelected($event)"/>
+    <button (click)="uploadMessage()" class="button send-button">Send</button>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+  <!-- Suggestions Button & Container -->
+  <div class="suggestions-container" *ngIf="messages.length > 0">
+    <button class="button show-suggestions-btn" (click)="getSuggestionsForLastReceivedMessage()">
+      Show Suggestions for Last Received Message
+    </button>
+
+    <!-- Loading indicator -->
+    <div *ngIf="isLoadingSuggestions" class="loading-suggestions">Loading suggestions...</div>
+
+    <!-- Suggestions Bubbles -->
+    <div *ngIf="suggestedReplies.length > 0" class="suggestions-bubbles">
+      <div *ngFor="let reply of suggestedReplies" class="suggestion-bubble">
+        {{ reply.startsWith('-') ? reply.substring(1).trim() : reply }}
+      </div>
+    </div>
+  </div>
+</div>

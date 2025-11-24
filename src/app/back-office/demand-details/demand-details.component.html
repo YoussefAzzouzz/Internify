@@ -1,0 +1,86 @@
+<h2 class="demand-details-title">Demand Details</h2>
+
+<div class="demand-details">
+  <p class="demand-detail"><strong>Title:</strong> {{ demand?.title }}</p>
+  <p class="demand-detail"><strong>Description:</strong> {{ demand?.description }}</p>
+  <p class="demand-detail"><strong>Field:</strong> {{ demand?.field }}</p>
+  <p class="demand-detail"><strong>Date:</strong> {{ formatDate(demand?.date) }}</p>
+  <p class="demand-detail"><strong>Status:</strong> {{ demand?.status }}</p>
+
+
+    <button *ngIf="demand?.cv" (click)="downloadCv(demand.id)" class="btn btn-primary">
+      Download CV
+    </button>
+
+
+</div>
+
+
+<h2>Responses for Demand</h2>
+<div class="search-container-modern">
+  <div class="search-field">
+    <input
+      type="text"
+      [ngModel]="commentSearch"
+      (ngModelChange)="onSearchInput($event)"
+      placeholder="🔍 Search by comment..."
+    />
+
+    <button class="btn-reset" (click)="resetResponses(demand?.id)" >Reset</button>
+  </div>
+
+  <div class="sort-field">
+    <label for="sort">Sort:</label>
+    <select id="sort" [(ngModel)]="sortOrder" (change)="sortResponses()">
+      <option value="" disabled selected>Sort by Date</option>
+      <option value="desc">Most Recent</option>
+      <option value="asc">Oldest</option>
+    </select>
+  </div>
+</div>
+
+<ul class="response-list">
+  <li *ngFor="let response of responses" class="response-item">
+    <div class="response-info">
+      <p><strong>Date:</strong> {{ formatDate(response.date) }}</p>
+      <p><strong>Status:</strong> {{ response.status }}</p>
+      <p><strong>Comment:</strong> {{ response.comment }}</p>
+    </div>
+  </li>
+</ul>
+<button class="btn-modern-pdf" (click)="exportResponsesAsPDF()">
+  📄 Export Responses to PDF
+</button>
+
+
+
+<h2>Evaluations</h2>
+
+<div class="evaluations-container">
+  <div *ngFor="let evaluation of evaluations" class="evaluation-card">
+    <p><strong>Rating:</strong>
+      <span class="rating-stars">
+        {{ '★'.repeat(evaluation.rating) }}{{ '☆'.repeat(5 - evaluation.rating) }}
+      </span>
+    </p>
+    <p><strong>Comment:</strong> {{ evaluation.comment }}</p>
+  </div>
+</div>
+
+<h3>Leave an Evaluation</h3>
+<div class="leave-evaluation">
+  <label for="rating">Rating:</label>
+  <select id="rating" [(ngModel)]="newEvaluation.rating" class="rating-select">
+    <option *ngFor="let r of [1,2,3,4,5]" [value]="r">{{ r }} ★</option>
+  </select>
+
+  <label for="comment">Comment:</label>
+  <textarea id="comment" [(ngModel)]="newEvaluation.comment" placeholder="Write a comment" class="comment-box"></textarea>
+
+  <button class="submit-btn" (click)="submitEvaluation()">Submit</button>
+</div>
+
+<!-- Back Button -->
+<div class="back-button-container">
+  <button class="btn btn-back" (click)="navigateToDemandList()">Back to List</button>
+</div>

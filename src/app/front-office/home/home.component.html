@@ -1,0 +1,63 @@
+
+
+
+<nav class="navbar" >
+ <div class="navbar-left">
+    <div class="navbar-logo">
+      <img src="assets/images/logo.png" alt="Logo" class="logo">
+    </div>
+    <span class="app-name">Internify</span>
+  </div>
+  <div class="navbar-right" >
+    <a routerLink="/back-office" class="nav-link" *ngIf="showAdminBoard">Dashboard</a>
+
+    <a routerLink="/front-office/login" class="nav-link" *ngIf="!isLoggedIn">Login</a>
+    <a routerLink="/front-office/register" class="nav-link" *ngIf="!isLoggedIn">Sign Up</a>
+    <a routerLink="/front-office/register" class="nav-link" (click)="logout()" *ngIf="isLoggedIn">logout</a>
+
+
+    <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
+
+      <li class="dropdown"><a class="dropdown-toggle nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false"   routerLink="profile"   >{{ username }}</a>
+      <div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation" href="#"  (click)="logout()">LogOut</a>
+        <a class="dropdown-item" role="presentation" href="/front-office/profile" >Profile</a>
+
+
+      </div>
+      </li>
+      </ul>
+      <a routerLink="/front-office/Reclamation" class="nav-link">Reclamation</a>
+
+      <div class="notification-container">
+        <button class="bell-icon" (click)="toggleMessage()">
+          🔔
+          <span *ngIf="notificationCount > 0" class="notification-count">{{ notificationCount }}</span>
+        </button>
+
+        <button *ngIf="showMessage" class="message-box"  (click)="handleNotificationClick()" >
+          <p *ngFor="let rec of userResolvedReclamations">
+     ✅ Reclamtion({{ rec.subject }}) IS - "RESOLVED"
+          </p>
+        </button>
+      </div>
+
+    <a routerLink="/front-office/internships-offers" class="nav-link">Internships Offers</a>
+    <a routerLink="/front-office/demand" class="nav-link">Internships Demands</a>
+    <a routerLink="/front-office/view" class="nav-link">Documents</a>
+    <a [routerLink]="['/front-office/chat', id]" class="nav-link">Chat</a>
+    <a routerLink="/front-office/notifications" class="nav-link">
+      <span class="notification-icon">🔔</span>
+    </a>
+
+
+
+
+
+
+
+  </div>
+</nav>
+
+<div class="main-content" style="padding-top: 150px;">
+  <router-outlet></router-outlet>
+</div>

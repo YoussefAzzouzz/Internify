@@ -1,0 +1,14 @@
+<div *ngFor="let offer of offers" class="offer-card">
+    <h2>{{ offer.title }}</h2>
+    <p>{{ offer.description }}</p>
+    <p><strong>Category:</strong> {{ offer.category }}</p>
+    <p><strong>Published:</strong> {{ offer.datePub }}</p>
+    <p><strong>Expires:</strong> {{ offer.dateExp }}</p>
+  
+    <!-- Display the image -->
+        <div *ngIf="offer.image">
+          <img [src]="offer.image" alt="{{ offer.title }}" class="offer-image">
+        </div>
+  
+    </div>
+  

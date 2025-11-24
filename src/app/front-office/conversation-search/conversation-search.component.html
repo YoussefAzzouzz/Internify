@@ -1,0 +1,75 @@
+<br>
+<div class="message-container">
+  <div class="search-filters">
+    <input type="text" [formControl]="contentControl" placeholder="Search by content or type..." />
+    <input type="date" [formControl]="dateControl" />
+  </div>
+
+  <ul class="message-list" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+    <li *ngIf="messages.length === 0" class="no-messages">No messages found</li>
+
+    <li *ngFor="let message of messages">
+      <ng-container *ngIf="message.content !== 'Deleted message' || message.receiver.id === userId">
+        <div *ngIf="message.sender.id === userId" class="sender-message">
+          <span *ngIf="!message.attachmentUrl && message.content !== 'Deleted message'">{{ message.content }}</span>
+
+          <a *ngIf="message.attachmentUrl && message.messageType=='IMAGE' && message.content !== 'Deleted message'" style="align-self: center"
+             [href]="'http://localhost:8099/internify/messages/upload/' + message.attachmentUrl.split('/').pop()"
+             download>
+            <img [src]="'http://localhost:8099/internify/messages/upload/' + message.attachmentUrl.split('/').pop()"
+                 alt="Attachment"
+                 class="message-image" />
+          </a>
+
+          <div *ngIf="message.attachmentUrl && message.messageType=='PDF' && message.content !== 'Deleted message'" class="pdf-container" style="align-self: center">
+            <a class="pdf-link" [href]="'http://localhost:8099/internify/messages/upload/' + message.attachmentUrl.split('/').pop()" download>
+              {{ message.attachmentUrl.split('/').pop() }} <!-- Display the file name -->
+            </a>
+          </div>
+
+          <audio *ngIf="message.attachmentUrl && message.messageType === 'AUDIO' && message.content !== 'Deleted message'" controls>
+            <source [src]="'http://localhost:8099/internify/messages/upload/' + message.attachmentUrl.split('/').pop()" type="audio/wav">
+            Your browser does not support the audio element.
+          </audio>
+          <div class="message-status">
+            <span>{{ message.status }}:</span>
+            <span>
+              {{ message.status === 'SENT' ? (message.timestamp | date: 'dd/MM/yyyy HH:mm') : (message.readAt ? (message.readAt | date: 'dd/MM/yyyy HH:mm') : 'Not read') }}
+            </span>
+          </div>
+        </div>
+
+        <div *ngIf="message.sender.id !== userId" class="receiver-message">
+          <span *ngIf="!message.attachmentUrl && message.content !== 'Deleted message'">{{ message.content }}</span>
+
+          <a *ngIf="message.attachmentUrl && message.messageType=='IMAGE' && message.content !== 'Deleted message' "
+             [href]="'http://localhost:8099/internify/messages/upload/' + message.attachmentUrl.split('/').pop()"
+             download>
+            <img [src]="'http://localhost:8099/internify/messages/upload/' + message.attachmentUrl.split('/').pop()"
+                 alt="Attachment"
+                 class="message-image" />
+          </a>
+
+          <div *ngIf="message.attachmentUrl && message.messageType=='PDF' && message.content !== 'Deleted message'" class="pdf-container">
+            <a class="pdf-link" [href]="'http://localhost:8099/internify/messages/upload/' + message.attachmentUrl.split('/').pop()" download>
+              {{ message.attachmentUrl.split('/').pop() }} <!-- Display the file name -->
+            </a>
+          </div>
+
+          <audio *ngIf="message.attachmentUrl && message.messageType === 'AUDIO' && message.content !== 'Deleted message'" controls>
+            <source [src]="'http://localhost:8099/internify/messages/upload/' + message.attachmentUrl.split('/').pop()" type="audio/wav">
+            Your browser does not support the audio element.
+          </audio>
+
+          <div *ngIf="message.content === 'Deleted message'" class="deleted-message">{{ message.content }}</div>
+          <div class="button-container">
+            <div class="message-status">
+              <span>{{ message.status }}: </span>
+              <span>{{ message.status === 'SENT' ? (message.timestamp | date: 'dd/MM/yyyy HH:mm') : (message.readAt ? (message.readAt | date: 'dd/MM/yyyy HH:mm') : 'Not read') }}</span>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </li>
+  </ul>
+</div>

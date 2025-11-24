@@ -1,0 +1,71 @@
+<br>
+<div class="conversation-container">
+  <h2>Conversations</h2>
+  <ul class="conversation-list">
+    <li *ngFor="let conversation of paginatedConversations" class="conversation-item">
+      <div class="conversation-details">
+        <span class="favorite-icon" (click)="toggleFavorite(conversation)">
+          {{ isUserFavorite(conversation,connectedUser) ? '⭐' : '☆' }}
+        </span>
+        <span class="user-name">
+          {{ conversation.users[0].id == userId ? conversation.users[1].username : conversation.users[0].username }}
+        </span>
+        <span class="last-message-date">{{ conversation.lastMessageTimestamp | date:'dd/MM/yyyy HH:mm' }}</span>
+        <span class="unread-count" *ngIf="conversation.unreadMessagesCount > 0">
+          {{ conversation.unreadMessagesCount }}
+        </span>
+      </div>
+      <div class="conversation-actions">
+        <button class="open-button" [routerLink]="['/front-office/chat', userId, conversation.id, 'message']">Open</button>
+        <button class="delete-button" (click)="deleteConversation(conversation.id)">Delete</button>
+        <button (click)="toggleMute(conversation)" class="mute-button">
+          {{ isUserMuted(conversation,connectedUser) ? 'Unmute' : 'Mute' }}
+        </button>
+        <button class="search-button" [routerLink]="['/front-office/chat', userId, conversation.id, 'search']">Search</button>
+      </div>
+    </li>
+  </ul>
+
+  <div *ngIf="conversations.length === 0" class="no-conversations">
+    No conversations found.
+  </div>
+
+  <div *ngIf="shouldShowPagination()" class="pagination">
+    <button (click)="previousPage()" [disabled]="currentPage === 1" *ngIf="currentPage > 1">Previous</button>
+    <span>Page {{ currentPage }} of {{ Math.ceil(conversations.length / itemsPerPage) }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= conversations.length" *ngIf="currentPage < Math.ceil(conversations.length / itemsPerPage)">Next</button>
+  </div>
+
+  <div class="create-conversation">
+    <input type="text" [(ngModel)]="newEmail" placeholder="Add a user by email" class="email-input" />
+    <button class="create-button" (click)="createConversation(newEmail)">Create a conversation</button>
+  </div>
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+  <!-- Recommended Friends Button -->
+  <div class="recommended-container">
+    <button class="recommended-button" (click)="showRecommendedFriends(); recommendedClicked = true; loadingRecommended = true">
+      Show Recommended Friends
+    </button>
+  </div>
+
+  <!-- Loading placeholder -->
+  <div *ngIf="recommendedClicked && loadingRecommended" class="loading-recommended">
+    Loading recommended users...
+  </div>
+
+  <!-- Recommended Users Table -->
+  <div *ngIf="recommendedClicked && !loadingRecommended && recommendedUsers.length > 0" class="recommended-table-container">
+    <ul class="recommended-list">
+      <li *ngFor="let user of recommendedUsers" class="recommended-item">
+        <span class="recommended-username">{{ user.username }}</span>
+        <span class="recommended-email">{{ user.email }}</span>
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="recommendedClicked && !loadingRecommended && recommendedUsers.length === 0" class="no-recommended">
+    No recommended users found.
+  </div>
+</div>

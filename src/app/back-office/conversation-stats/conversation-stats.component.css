@@ -1,0 +1,102 @@
+.message-stats {
+    padding: 20px;
+    background-color: #e4e6f0; /* Slightly darker background */
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    max-width: 800px;
+    margin: 20px auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #333; /* Darker text for better readability */
+  }
+  
+  h2 {
+    font-size: 1.6rem;
+    color: #222; /* Darker heading color */
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+  
+  .error-message {
+    color: #b71c1c; /* Darker red for errors */
+    background-color: #f7c8c8; /* Darker light red background */
+    padding: 10px;
+    border-radius: 6px;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1rem;
+  }
+  
+  .stats-container,
+  .types-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .stat {
+    background-color: #ffffff;
+    border: 1px solid #cccccc; /* Slightly darker border */
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    flex: 1 1 calc(33% - 15px);
+    min-width: 200px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .stat:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .stat-label {
+    font-weight: 600;
+    color: #5a6268; /* Darker soft grey */
+    font-size: 1rem;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+  
+  .stat-value {
+    font-size: 1.2rem;
+    color: #343a40; /* Darker text for the value */
+    font-weight: 500;
+  }
+  
+  .stat.total-stat {
+    background-color: #b2ebf2; /* Slightly darker light blue */
+    border-color: #4dd0e1; /* Darker blue for borders */
+  }
+  
+  .average-time {
+    background-color: #c5cae9; /* Darker light blue */
+    border: 1px solid #7986cb; /* Darker border color */
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+  
+  @media (max-width: 768px) {
+    .stat {
+      flex: 1 1 calc(50% - 15px);
+    }
+  
+    h2 {
+      font-size: 1.4rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .stat {
+      flex: 1 1 100%;
+    }
+  
+    h2 {
+      font-size: 1.3rem;
+    }
+  }
+  

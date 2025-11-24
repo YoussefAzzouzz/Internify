@@ -1,0 +1,21 @@
+.response-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Space between boxes */
+  }
+  
+  .response-box {
+    background-color: #f0f0f0; /* Light background */
+    border: 1px solid #ccc; /* Border for the box */
+    border-radius: 5px; /* Rounded corners */
+    padding: 15px; /* Padding inside the box */
+    width: 200px; /* Fixed width for boxes */
+    text-align: center; /* Center text */
+    transition: transform 0.2s, box-shadow 0.2s; /* Smooth transition */
+    cursor: pointer; /* Pointer cursor on hover */
+  }
+  
+  .response-box:hover {
+    transform: scale(1.05); /* Slightly enlarge on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+  }

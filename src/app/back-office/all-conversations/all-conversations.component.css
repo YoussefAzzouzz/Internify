@@ -1,0 +1,102 @@
+.conversation-container {
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 25px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .conversation-container h2 {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 25px;
+  }
+  
+  .conversation-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .conversation-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    margin-bottom: 12px;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    transition: background-color 0.25s ease;
+  }
+  
+  .conversation-item:hover {
+    background-color: #f1f5ff;
+  }
+  
+  .conversation-details {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .user-name {
+    font-weight: 600;
+    font-size: 16px;
+    color: #2c3e50;
+    margin-bottom: 4px;
+  }
+  
+  .last-message-date {
+    font-size: 14px;
+    color: #777;
+  }
+  
+  /* Statistics Button */
+  .stats-button {
+    background-color: #6f42c1;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .stats-button:hover {
+    background-color: #5a32a3;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-top: 20px;
+  }
+  
+  .pagination button {
+    padding: 8px 16px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    font-weight: 500;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+  }
+  
+  .pagination button[disabled] {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  .pagination span {
+    font-size: 16px;
+    font-weight: 500;
+  }
+  

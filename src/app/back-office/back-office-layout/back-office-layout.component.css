@@ -1,0 +1,296 @@
+/* Navbar styles */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1E2A36; /* Dark, sleek background */
+  padding: 15px 25px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+}
+
+.navbar:hover {
+  background-color: #2A3A50; /* Slightly lighter when hovered */
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.navbar-logo .logo {
+  height: 80px; /* Increased logo size */
+  object-fit: contain;
+}
+
+.sidebar-toggle {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 25px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.sidebar-toggle:hover {
+  color: #ffcc00; /* Highlight icon on hover */
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+  border-radius: 30px;
+  background-color: #2A3A50;
+  padding: 5px 15px;
+}
+
+.search-input {
+  border: none;
+  background: none;
+  color: white;
+  font-size: 16px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  outline: none;
+}
+
+.search-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.search-button:hover {
+  color: #ffcc00;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
+}
+
+.user-info {
+  color: white;
+  font-size: 14px;
+}
+
+.user-name {
+  font-weight: 600;
+}
+
+/* Sidebar styles */
+.sidebar {
+  position: fixed;
+  top: 60px; /* Height of the navbar */
+  left: 0;
+  width: 280px;
+  height: calc(100% - 60px);
+  background-color: #1C2533; /* Darker shade for professional look */
+  transition: width 0.3s ease;
+  padding-top: 60px;
+  box-shadow: 3px 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar.collapsed {
+  width: 70px; /* More compact when collapsed */
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-link {
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  padding: 18px 20px;
+  color: white;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+.sidebar-link:hover {
+  background-color: #003366; /* Blue highlight */
+  transform: translateX(10px); /* Slide effect */
+}
+
+.sidebar-link i {
+  margin-right: 15px;
+}
+
+.sidebar.collapsed .sidebar-link span {
+  display: none;
+}
+
+.sidebar.collapsed .sidebar-link i {
+  margin-right: 0;
+}
+
+/* Main content styles */
+.main-content {
+  margin-left: 280px;
+  padding: 80px 20px 20px 20px;
+  transition: margin-left 0.3s ease;
+}
+
+.main-content.collapsed {
+  margin-left: 70px;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 70px;
+  }
+
+  .sidebar.collapsed {
+    width: 0;
+  }
+
+  .main-content {
+    margin-top: 50px;
+    margin-left: 70px;
+  }
+
+  .main-content.collapsed {
+    margin-left: 0;
+  }
+
+  .navbar-logo .logo {
+    height: 50px;
+  }
+}
+/* Navbar styles */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1E2A36; /* Dark, sleek background */
+  padding: 15px 25px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+}
+
+.navbar:hover {
+  background-color: #2A3A50; /* Slightly lighter when hovered */
+}
+
+/* Sidebar styles */
+.sidebar {
+  position: fixed;
+  top: 60px; /* Height of the navbar */
+  left: 0;
+  width: 280px;
+  height: calc(100% - 60px);
+  background-color: #1C2533; /* Darker shade for professional look */
+  transition: width 0.3s ease;
+  padding-top: 60px;
+  box-shadow: 3px 0 10px rgba(0, 0, 0, 0.2);
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.sidebar.collapsed {
+  width: 70px; /* More compact when collapsed */
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-link {
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  padding: 18px 20px;
+  color: white;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+.sidebar-link:hover {
+  background-color: #003366; /* Blue highlight */
+  transform: translateX(10px); /* Slide effect */
+}
+
+.sidebar-link i {
+  margin-right: 15px;
+}
+
+.sidebar.collapsed .sidebar-link span {
+  display: none;
+}
+
+.sidebar.collapsed .sidebar-link i {
+  margin-right: 0;
+}
+
+/* Main content styles */
+.main-content {
+  margin-left: 280px;
+  padding: 80px 20px 20px 20px;
+  transition: margin-left 0.3s ease;
+}
+
+.main-content.collapsed {
+  margin-left: 70px;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 70px;
+  }
+
+  .sidebar.collapsed {
+    width: 0;
+  }
+
+  .main-content {
+    margin-top: 50px;
+    margin-left: 70px;
+  }
+
+  .main-content.collapsed {
+    margin-left: 0;
+  }
+
+  .navbar-logo .logo {
+    height: 50px;
+  }
+}

@@ -1,0 +1,36 @@
+<form (ngSubmit)="onSubmit()" enctype="multipart/form-data" class="offer-form">
+    <h2 class="form-title">Add New Offer</h2>
+  
+    <div class="form-group">
+      <label for="title">Title:</label>
+      <input type="text" id="title" [(ngModel)]="offer.title" name="title" class="form-input" required />
+    </div>
+  
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea id="description" [(ngModel)]="offer.description" name="description" class="form-input" required></textarea>
+    </div>
+  
+    <div class="form-group">
+      <label for="category">Category:</label>
+      <input type="text" id="category" [(ngModel)]="offer.category" name="category" class="form-input" required />
+    </div>
+  
+    <div class="form-group">
+      <label for="datePub">Date of Publication:</label>
+      <input type="date" id="datePub" [(ngModel)]="offer.datePub" name="datePub" class="form-input" required />
+    </div>
+  
+    <div class="form-group">
+      <label for="dateExp">Expiration Date:</label>
+      <input type="date" id="dateExp" [(ngModel)]="offer.dateExp" name="dateExp" class="form-input" required />
+    </div>
+  
+    <div class="form-group">
+      <label for="image">Image:</label>
+      <input type="file" id="image" (change)="onFileChange($event)" class="form-input" required />
+    </div>
+  
+    <button type="submit" class="btn-submit">Submit Offer</button>
+  </form>
+  

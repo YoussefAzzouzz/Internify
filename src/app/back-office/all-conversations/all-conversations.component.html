@@ -1,0 +1,27 @@
+<br><br><br>
+<div class="conversation-container">
+  <h2>All Conversations</h2>
+
+  <ul class="conversation-list">
+    <li *ngFor="let conv of paginatedConversations" class="conversation-item">
+      <div class="conversation-details">
+        <span class="user-name">
+          {{ conv.users[0]?.username }} & {{ conv.users[1]?.username }}
+        </span>
+        <span class="last-message-date">
+          {{ conv.createdAt | date:'dd/MM/yyyy HH:mm' }}
+        </span>
+      </div>
+
+      <button class="stats-button" [routerLink]="['/back-office/conversations',conv.id]">
+        Statistics
+      </button>
+    </li>
+  </ul>
+
+  <div *ngIf="shouldShowPagination()" class="pagination">
+    <button (click)="previousPage()" [disabled]="currentPage === 1" *ngIf="currentPage > 1">Previous</button>
+    <span>Page {{ currentPage }} of {{ Math.ceil(conversations.length / itemsPerPage) }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= conversations.length" *ngIf="currentPage < Math.ceil(conversations.length / itemsPerPage)">Next</button>
+  </div>
+</div>

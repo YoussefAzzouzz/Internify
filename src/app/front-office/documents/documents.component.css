@@ -1,0 +1,30 @@
+.button-container {
+  display: flex;
+  flex-direction: column; /* Stack buttons vertically */
+  align-items: center; /* Center horizontally */
+  justify-content: center; /* Center vertically */
+  height: 100vh; /* Take full height of the viewport */
+}
+
+.big-button {
+  padding: 15px 30px;
+  font-size: 18px;
+  margin: 10px; /* Space between buttons */
+  border: none;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+}
+
+.big-button:hover {
+  background-color: #0056b3;
+}
+
+
+/* Main Content */
+.main-content {
+  margin-top: 90px; /* Increase margin for main content */
+  padding: 20px;
+  transition: margin-top 0.3s ease;
+}

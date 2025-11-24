@@ -1,0 +1,408 @@
+
+
+
+<div class="dashboard-charts">
+
+
+
+
+
+    <div class="chart-card">
+      <div class="search-container">
+        <input [(ngModel)]="searchTerm" (keyup)="searchAdvancedUsers()" class="search-input" placeholder="Search by Username, Email, or Phone" />
+      </div>
+
+
+      <h3>Job Seekers</h3>
+      <!-- Add button for creating a new Job Seeker -->
+      <button class="btn btn-success mb-3" (click)="onAdd()">Add Job Seeker</button>
+      <div class="chart-container">
+        <div class="container">
+          <!-- Error message if any -->
+
+          <!-- List of job seekers -->
+          <table class="table table-bordered" style="width: 100%; table-layout: fixed;">
+            <thead>
+              <tr>
+                <th style="width: 15%;">ID</th>
+                <th style="width: 30%;">Username</th>
+                <th style="width: 40%;">Email</th>
+                <th style="width: 26%;">Password</th>
+                <th style="width: 21%;">Phone</th>
+                <th style="width: 15%;">Verif</th>
+                <th style="width: 30%;">Resume</th>
+                <th style="width: 30%;">Skills</th>
+                <th style="width: 30%;">Education</th>
+                <th style="width: 20%;">Action</th>
+              </tr>
+              </thead>
+              <tbody>
+
+                  <tr *ngIf="isAdding">
+                      <td>New</td>
+
+                      <td><input type="text" [(ngModel)]="newJobSeeker.user.username" class="form-control" /></td>
+                      <td><input type="email" [(ngModel)]="newJobSeeker.user.email" class="form-control" /></td>
+                      <td><input type="text" [(ngModel)]="newJobSeeker.user.password" class="form-control" /></td>
+                      <td><input type="text" [(ngModel)]="newJobSeeker.user.phone" class="form-control" /></td>
+                      <td><input type="text" [(ngModel)]="newJobSeeker.user.isVerified" class="form-control" /></td>
+                      <td><input type="text" [(ngModel)]="newJobSeeker.resume" class="form-control" /></td>
+                      <td><input type="text" [(ngModel)]="newJobSeeker.skills" class="form-control" /></td>
+                      <td><input type="text" [(ngModel)]="newJobSeeker.education" class="form-control" /></td>
+                      <td>
+                        <button class="btn btn-success btn-sm" (click)="onSaveNew()">Save</button>
+                        <button class="btn btn-secondary btn-sm" (click)="cancelAdd()">Cancel</button>
+                      </td>
+                    </tr>
+
+                <tr *ngFor="let jobSeeker of jobSeekers | slice:(currentPageJobSeekers-1)*itemsPerPageJobSeekers:(currentPageJobSeekers)*itemsPerPageJobSeekers"  >
+
+
+
+
+                  <!-- Editable fields: If in edit mode, show input; otherwise, display value -->
+
+
+                  <td>
+                      <ng-container *ngIf="editedJobSeeker?.id === jobSeeker.id; else viewID">
+                        <input type="text" [(ngModel)]="editedJobSeeker.user.id" class="form-control" disabled />
+                      </ng-container>
+                      <ng-template #viewID>
+                        {{ jobSeeker.user.id }}
+                      </ng-template>
+                    </td>
+
+
+                    <td>
+                      <ng-container *ngIf="editedJobSeeker?.id === jobSeeker.id; else viewusername">
+                        <input type="text" [(ngModel)]="editedJobSeeker.user.username" class="form-control" />
+                      </ng-container>
+                      <ng-template #viewusername>
+                        {{ jobSeeker.user.username }}
+                      </ng-template>
+                    </td>
+
+
+
+
+                    <td>
+                      <ng-container *ngIf="editedJobSeeker?.id === jobSeeker.id; else viewEmail">
+                        <input type="text" [(ngModel)]="editedJobSeeker.user.email" class="form-control" />
+                      </ng-container>
+                      <ng-template #viewEmail>
+                        {{ jobSeeker.user.email }}
+                      </ng-template>
+                    </td>
+
+                    <td>
+                      <ng-container *ngIf="editedJobSeeker?.id === jobSeeker.id; else viewPassword">
+                        <div class="password-container">
+                          <!-- The input will be readonly, but the visibility toggle still works -->
+                          <input [type]="isPasswordVisible ? 'text' : 'password'" [(ngModel)]="editedJobSeeker.user.password" class="form-control" [readonly]="true" />
+                          <i class="bi" [ngClass]="isPasswordVisible ? 'bi-eye-slash' : 'bi-eye'" (click)="togglePasswordVisibility()"></i> <!-- Eye icon for toggle -->
+                        </div>
+                      </ng-container>
+                      <ng-template #viewPassword>
+                        **** <!-- Display asterisks when not editing -->
+                      </ng-template>
+                    </td>
+
+
+
+
+                    <td>
+                      <ng-container *ngIf="editedJobSeeker?.id === jobSeeker.id; else viewPhone">
+                        <input type="text" [(ngModel)]="editedJobSeeker.user.phone" class="form-control" />
+                      </ng-container>
+                      <ng-template #viewPhone>
+                        {{ jobSeeker.user.phone }}
+                      </ng-template>
+                    </td>
+
+
+                    <td>
+                      <ng-container *ngIf="editedJobSeeker?.id === jobSeeker.id; else viewisVerified">
+                        <input type="text" [(ngModel)]="editedJobSeeker.user.isVerified" class="form-control" />
+                      </ng-container>
+                      <ng-template #viewisVerified>
+                        {{ jobSeeker.user.isVerified }}
+                      </ng-template>
+                    </td>
+
+
+
+
+                  <td>
+                    <ng-container *ngIf="editedJobSeeker?.id === jobSeeker.id; else viewResume">
+                      <input type="text" [(ngModel)]="editedJobSeeker.resume" class="form-control" />
+                    </ng-container>
+                    <ng-template #viewResume>
+                      {{ jobSeeker.resume }}
+                    </ng-template>
+                  </td>
+
+                  <td>
+                    <ng-container *ngIf="editedJobSeeker?.id === jobSeeker.id; else viewSkills">
+                      <input type="text" [(ngModel)]="editedJobSeeker.skills" class="form-control" />
+                    </ng-container>
+                    <ng-template #viewSkills>
+                      {{ jobSeeker.skills }}
+                    </ng-template>
+                  </td>
+
+                  <td>
+                    <ng-container *ngIf="editedJobSeeker?.id === jobSeeker.id; else viewEducation">
+                      <input type="text" [(ngModel)]="editedJobSeeker.education" class="form-control" />
+                    </ng-container>
+                    <ng-template #viewEducation>
+                      {{ jobSeeker.education }}
+                    </ng-template>
+                  </td>
+
+
+
+                  <td>
+                    <!-- If this row is in edit mode, show Save and Cancel -->
+                    <ng-container *ngIf="editedJobSeeker?.id === jobSeeker.id; else editDeleteButtons">
+                      <button class="btn btn-success btn-sm" (click)="onSave(editedJobSeeker)">Save</button>
+                      <button class="btn btn-secondary btn-sm" (click)="cancelEdit()">Cancel</button>
+                    </ng-container>
+                    <ng-template #editDeleteButtons>
+                      <button class="btn btn-primary btn-sm" (click)="onEdit(jobSeeker)">Edit</button>
+                      <button class="btn btn-danger btn-sm" (click)="onDelete(jobSeeker.id)">Delete</button>
+                    </ng-template>
+                  </td>
+                </tr>
+              <!-- Pagination controls for products -->
+
+              <hr>
+              </tbody>
+            </table>
+
+
+
+
+            <!-- Message if no job seekers are found -->
+            <div *ngIf="jobSeekers && jobSeekers.length === 0">
+              No job seekers found.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+    <div class="pagination-container">
+
+      <button (click)="prevPageJobSeekers()" [disabled]="currentPageJobSeekers === 1">Previous</button>
+  <span>Page {{ currentPageJobSeekers }}</span>
+  <button (click)="nextPageJobSeekers()" [disabled]="currentPageJobSeekers >= getTotalPagesJobSeekers()">Next</button>
+
+        </div>
+
+
+
+
+    <div class="dashboard-charts">
+      <div class="chart-card">
+        <h3>Entreprises</h3>
+        <!-- Add button for creating a new Job Seeker -->
+        <button class="btn btn-success mb-3" (click)="onAdd1()">Add Entreprise</button>
+        <div class="chart-container">
+          <div class="container">
+            <!-- Error message if any -->
+
+            <!-- List of job seekers -->
+            <table class="table table-bordered" style="width: 100%; table-layout: fixed;">
+              <thead>
+                <tr>
+                  <th style="width: 15%;">ID</th>
+                  <th style="width: 30%;">Username</th>
+                  <th style="width: 40%;">Email</th>
+                  <th style="width: 32%;">Password</th>
+                  <th style="width: 25%;">Phone</th>
+                  <th style="width: 20%;">Verif</th>
+                  <th style="width: 40%;">companyDescription</th>
+                  <th style="width: 30%;">address</th>
+                  <th style="width: 20%;">logo</th>
+                  <th style="width: 20%;">industry</th>
+                  <th style="width: 35%;">companyWebsite</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                    <tr *ngIf="isAdding1">
+                        <td>New</td>
+
+                        <td><input type="text" [(ngModel)]="newEntreprise.user.username" class="form-control" /></td>
+                        <td><input type="email" [(ngModel)]="newEntreprise.user.email" class="form-control" /></td>
+                        <td><input type="text" [(ngModel)]="newEntreprise.user.password" class="form-control" /></td>
+                        <td><input type="text" [(ngModel)]="newEntreprise.user.phone" class="form-control" /></td>
+                        <td><input type="text" [(ngModel)]="newEntreprise.user.isVerified" class="form-control" /></td>
+                        <td><input type="text" [(ngModel)]="newEntreprise.companyDescription" class="form-control" /></td>
+                        <td><input type="text" [(ngModel)]="newEntreprise.address" class="form-control" /></td>
+                        <td><input type="text" [(ngModel)]="newEntreprise.logo" class="form-control" /></td>
+                        <td><input type="text" [(ngModel)]="newEntreprise.industry" class="form-control" /></td>
+                        <td><input type="text" [(ngModel)]="newEntreprise.companyWebsite" class="form-control" /></td>
+
+                        <td>
+                          <button class="btn btn-success btn-sm" (click)="onSaveNew1()">Save</button>
+                          <button class="btn btn-secondary btn-sm" (click)="cancelAdd1()">Cancel</button>
+                        </td>
+                      </tr>
+
+                  <tr *ngFor="let entreprise of Entreprises | slice:(currentPageEntreprises-1)*itemsPerPageEntreprises:(currentPageEntreprises)*itemsPerPageEntreprises"  >
+
+
+
+
+                      <td>
+                        <ng-container *ngIf="editedEntreprise?.id === entreprise.id; else viewID">
+                          <input type="text" [(ngModel)]="editedEntreprise.user.id" class="form-control" disabled />
+                        </ng-container>
+                        <ng-template #viewID>
+                          {{ entreprise.user.id }}
+                        </ng-template>
+                      </td>
+
+                      <td>
+                        <ng-container *ngIf="editedEntreprise?.id === entreprise.id; else viewUsername">
+                          <input type="text" [(ngModel)]="editedEntreprise.user.username" class="form-control" />
+                        </ng-container>
+                        <ng-template #viewUsername>
+                          {{ entreprise.user.username }}
+                        </ng-template>
+                      </td>
+
+                      <td>
+                        <ng-container *ngIf="editedEntreprise?.id === entreprise.id; else viewEmail">
+                          <input type="email" [(ngModel)]="editedEntreprise.user.email" class="form-control" />
+                        </ng-container>
+                        <ng-template #viewEmail>
+                          {{ entreprise.user.email }}
+                        </ng-template>
+                      </td>
+
+                      <td>
+                        <ng-container *ngIf="editedEntreprise?.id === entreprise.id; else viewPassword">
+                          <div class="password-container">
+                            <input [type]="isPasswordVisible ? 'text' : 'password'" [(ngModel)]="editedEntreprise.user.password" class="form-control" [readonly]="true" />
+                            <i class="bi" [ngClass]="isPasswordVisible ? 'bi-eye-slash' : 'bi-eye'" (click)="togglePasswordVisibility()"></i> <!-- Eye icon for toggle -->
+                          </div>
+                        </ng-container>
+                        <ng-template #viewPassword>
+                          **** <!-- Display asterisks when not editing -->
+                        </ng-template>
+                      </td>
+
+                      <td>
+                        <ng-container *ngIf="editedEntreprise?.id === entreprise.id; else viewPhone">
+                          <input type="text" [(ngModel)]="editedEntreprise.user.phone" class="form-control" />
+                        </ng-container>
+                        <ng-template #viewPhone>
+                          {{ entreprise.user.phone }}
+                        </ng-template>
+                      </td>
+
+                      <td>
+                        <ng-container *ngIf="editedEntreprise?.id === entreprise.id; else viewIsVerified">
+                          <input type="text" [(ngModel)]="editedEntreprise.user.isVerified" class="form-control" />
+                        </ng-container>
+                        <ng-template #viewIsVerified>
+                          {{ entreprise.user.isVerified }}
+                        </ng-template>
+                      </td>
+
+                      <td>
+                        <ng-container *ngIf="editedEntreprise?.id === entreprise.id; else viewCompanyDescription">
+                          <input type="text" [(ngModel)]="editedEntreprise.companyDescription" class="form-control" />
+                        </ng-container>
+                        <ng-template #viewCompanyDescription>
+                          {{ entreprise.companyDescription }}
+                        </ng-template>
+                      </td>
+
+                      <td>
+                        <ng-container *ngIf="editedEntreprise?.id === entreprise.id; else viewAddress">
+                          <input type="text" [(ngModel)]="editedEntreprise.address" class="form-control" />
+                        </ng-container>
+                        <ng-template #viewAddress>
+                          {{ entreprise.address }}
+                        </ng-template>
+                      </td>
+
+
+
+                      <td>
+                        <ng-container *ngIf="editedEntreprise?.id === entreprise.id; else viewLogo">
+                          <input type="text" [(ngModel)]="editedEntreprise.logo" class="form-control" />
+                        </ng-container>
+                        <ng-template #viewLogo>
+                          {{ entreprise.logo }}
+                        </ng-template>
+                      </td>
+
+                      <td>
+                        <ng-container *ngIf="editedEntreprise?.id === entreprise.id; else viewIndustry">
+                          <input type="text" [(ngModel)]="editedEntreprise.industry" class="form-control" />
+                        </ng-container>
+                        <ng-template #viewIndustry>
+                          {{ entreprise.industry }}
+                        </ng-template>
+                      </td>
+
+                      <td>
+                        <ng-container *ngIf="editedEntreprise?.id === entreprise.id; else viewCompanyWebsite">
+                          <input type="text" [(ngModel)]="editedEntreprise.companyWebsite" class="form-control" />
+                        </ng-container>
+                        <ng-template #viewCompanyWebsite>
+                          {{ entreprise.companyWebsite }}
+                        </ng-template>
+
+
+
+
+                    <td>
+                      <!-- If this row is in edit mode, show Save and Cancel -->
+                      <ng-container *ngIf="editedEntreprise?.id === entreprise.id; else editDeleteButtons">
+                        <button class="btn btn-success btn-sm" (click)="onSave1(editedEntreprise)">Save</button>
+                        <button class="btn btn-secondary btn-sm" (click)="cancelEdit1()">Cancel</button>
+                      </ng-container>
+                      <ng-template #editDeleteButtons>
+                        <button class="btn btn-primary btn-sm" (click)="onEdit1(entreprise)">Edit</button>
+                        <button class="btn btn-danger btn-sm" (click)="onDelete1(entreprise.id)">Delete</button>
+                      </ng-template>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+
+              <!-- Message if no job seekers are found -->
+              <div *ngIf="Entreprises && Entreprises.length === 0">
+                No Entreprises found.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="errorMessage1" class="alert alert-danger">
+        {{ errorMessage1 }}
+      </div>
+
+      <div class="pagination-container">
+
+        <!-- Pagination Controls for Employers -->
+        <button (click)="prevPageEntreprises()" [disabled]="currentPageEntreprises === 1">Previous</button>
+        <span>Page {{ currentPageEntreprises }}</span>
+        <button (click)="nextPageEntreprises()" [disabled]="currentPageEntreprises >= getTotalPagesEntreprises()">Next</button>
+
+      </div>
+      <div style="display: block;">
+
+<canvas id="statisticsChart" width="400" height="200"></canvas>
+
+      </div>
+
+

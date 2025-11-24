@@ -1,0 +1,147 @@
+
+
+
+<div class="container">
+    <h2>Reclamation Management</h2>
+  
+    <!-- Error Message Display -->
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+  
+    <!-- Add New Reclamation Form -->
+    <div *ngIf="isAdding">
+      <h3>Add New Reclamation</h3>
+      <form (ngSubmit)="onSaveNew()" #addReclamationForm="ngForm">
+        
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input
+            type="text"
+            id="subject"
+            class="form-control"
+            [(ngModel)]="newReclamation.subject"
+            name="subject"
+            placeholder="Enter subject"
+            required
+            #subject="ngModel"
+            minlength="5"
+          />
+          <div *ngIf="subject.invalid && subject.touched" class="text-danger">
+            Subject is required and must be at least 5 characters long.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea
+            id="message"
+            class="form-control"
+            [(ngModel)]="newReclamation.message"
+            name="message"
+            rows="4"
+            placeholder="Enter message"
+            required
+            #message="ngModel"
+            minlength="5"
+          ></textarea>
+          <div *ngIf="message.invalid && message.touched" class="text-danger">
+            Message is required and must be at least 5 characters long.
+          </div>
+        </div>
+  
+      
+  
+        <button type="submit" class="btn btn-primary" [disabled]="addReclamationForm.invalid">Save Reclamation</button>
+        <button type="button" class="btn btn-secondary" (click)="isAdding = false">Cancel</button>
+      </form>
+    </div>
+  
+    <!-- Reclamation List -->
+    <div *ngIf="!isAdding">
+      <h3>All Reclamations</h3>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Subject</th>
+            <th>Message</th>
+            <th>Status</th>
+            <th>Created At</th>
+            <th>Updated At</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let reclamation of Reclamations">
+            <td>{{ reclamation.user.username }}</td>
+            <td>
+              <ng-container *ngIf="editedReclamation?.id === reclamation.id; else viewSubject">
+                <input
+                  type="text"
+                  [(ngModel)]="editedReclamation.subject"
+                  class="form-control"
+                  [class.is-invalid]="editedReclamation?.subject.length < 5 && editedReclamation?.subject.length > 0"
+                  minlength="5"
+                />
+                <div
+                  *ngIf="editedReclamation?.subject.length < 5 && editedReclamation?.subject.length > 0"
+                  class="text-danger"
+                >
+                  Subject must be at least 5 characters long.
+                </div>
+              </ng-container>
+              <ng-template #viewSubject>{{ reclamation.subject }}</ng-template>
+            </td>
+  
+            <td>
+              <ng-container *ngIf="editedReclamation?.id === reclamation.id; else viewMessage">
+                <textarea
+                  [(ngModel)]="editedReclamation.message"
+                  class="form-control"
+                  rows="4"
+                  [class.is-invalid]="editedReclamation?.message.length < 5 && editedReclamation?.message.length > 0"
+                  minlength="5"
+                ></textarea>
+                <div
+                  *ngIf="editedReclamation?.message.length < 5 && editedReclamation?.message.length > 0"
+                  class="text-danger"
+                >
+                  Message must be at least 5 characters long.
+                </div>
+              </ng-container>
+              <ng-template #viewMessage>{{ reclamation.message }}</ng-template>
+            </td>
+  
+            <td>{{ reclamation.status }}</td>
+            <td>{{ reclamation.createdAt }}</td>
+            <td>{{ reclamation.updatedAt }}</td>
+  
+            <td>
+              <button
+                *ngIf="editedReclamation?.id === reclamation.id"
+                class="btn btn-success"
+                (click)="onUpdate()"
+                [disabled]="editedReclamation.subject.length < 5 || editedReclamation.message.length < 5"
+              >
+                Save
+              </button>
+              <button *ngIf="editedReclamation?.id === reclamation.id" class="btn btn-secondary" (click)="cancelEdit()">
+                Cancel
+              </button>
+              <button *ngIf="editedReclamation?.id !== reclamation.id" class="btn btn-warning" (click)="onEdit(reclamation)">
+                Edit
+              </button>
+              <button class="btn btn-danger" (click)="onDelete(reclamation.id)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+  
+      <!-- Add New Reclamation Button -->
+      <button class="btn btn-primary" (click)="onAdd()">Add New Reclamation</button>
+    </div>
+  </div>
+  
+
+

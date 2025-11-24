@@ -1,0 +1,52 @@
+<div class="contract-container">
+  <div class="card shadow-lg p-5">
+    <h2 class="contract-title">Reports</h2>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover contract-table">
+        <thead class="thead-dark">
+        <tr>
+          <th>ID</th>
+          <th>Submission Date</th>
+          <th>Validated</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let report of reports">
+          <td>{{ report.id }}</td>
+          <td>{{ report.submissionDate | date:'yyyy-MM-dd' }}</td>
+          <td>
+              <span class="badge" [ngClass]="getValidatedClass(report.validatedByCompany)">
+                {{ report.validatedByCompany ? 'Yes' : 'No' }}
+              </span>
+          </td>
+          <td>
+            <button *ngIf="!report.validatedByCompany"
+                    (click)="openSignaturePad(report.id)"
+                    class="small-button">
+              Sign It
+            </button>
+            <button (click)="downloadReport(report.id)" class="small-button">
+              Download
+            </button>
+            <button (click)="delete(report.id)" class="small-button">
+              Delete
+            </button>
+
+
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Signature Pad Modal -->
+<div *ngIf="showSignaturePad" class="signature-modal">
+  <h3>Sign Report</h3>
+  <canvas #signaturePad width="300" height="150"></canvas>
+  <button (click)="clearSignature()" class="big-button">Clear</button>
+  <button (click)="submitSignature()" class="big-button">Sign</button>
+  <button (click)="closeSignaturePad()" class="close-button">Close</button>
+</div>

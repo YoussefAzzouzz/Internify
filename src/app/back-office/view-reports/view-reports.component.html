@@ -1,0 +1,78 @@
+<div class="main-content" style="padding-top: 100px" [class.collapsed]="isSidebarCollapsed">
+  <router-outlet>
+    <div class="contract-container">
+      <div class="card shadow-lg p-5">
+        <h2 class="contract-title">All Reports</h2>
+
+        <!-- Search Filters Section -->
+        <div class="contract-search">
+          <div class="row justify-content-center">
+            <!-- Report ID Filter -->
+            <div class="col-md-4 mb-3">
+              <label for="reportId">Report ID</label>
+              <input type="number" class="form-control" id="reportId" [(ngModel)]="idFilter" />
+            </div>
+
+            <!-- Validated by Company Filter (Dropdown for boolean values) -->
+            <div class="col-md-4 mb-3">
+              <label for="validatedByCompany">Validated by Company</label>
+              <select class="form-control" id="validatedByCompany" [(ngModel)]="validatedByCompanyFilter">
+                <option value="">-- Select Status --</option>
+                <option [value]="true">True</option>
+                <option [value]="false">False</option>
+              </select>
+            </div>
+          </div>
+
+          
+        </div>
+
+
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover contract-table">
+            <thead class="thead-dark">
+            <tr>
+              <th>ID</th>
+              <th>Submission Date</th>
+              <th>Validated</th>
+              <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let report of reports | slice:(currentPage-1)*itemsPerPage:(currentPage)*itemsPerPage">
+              <td>{{ report.id }}</td>
+              <td>{{ report.submissionDate | date:'yyyy-MM-dd' }}</td>
+              <td>
+                  <span class="badge" [ngClass]="getValidatedClass(report.validatedByCompany)">
+                    {{ report.validatedByCompany ? 'Yes' : 'No' }}
+                  </span>
+              </td>
+              <td>
+                <button (click)="getResume(report.id)" class="btn btn-success">
+                  Résumer avec IA
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="d-flex justify-content-center">
+      <pagination
+        [totalItems]="reports.length"
+        [(ngModel)]="currentPage"
+        [itemsPerPage]="itemsPerPage"
+        (pageChanged)="pageChanged($event)">
+      </pagination>
+    </div>
+
+    <!-- Report Stats Chart -->
+    <div class="chart-container mt-5">
+      <h3>📊 Reports by Validation</h3>
+      <canvas id="reportChart"></canvas>
+    </div>
+  </router-outlet>
+</div>

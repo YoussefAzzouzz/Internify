@@ -1,0 +1,16 @@
+<!-- Success Message -->
+<div *ngIf="isVerified" class="success-message">
+  <div class="message-container">
+    <h3 class="message-title">Email Verified Successfully!</h3>
+    <p class="message-description">Your email has been verified. You can now log in to your account.</p>
+    <button (click)="redirectToLogin()" class="success-button">Go to Login</button>
+  </div>
+</div>
+
+<!-- Error Message -->
+<div *ngIf="!isVerified && verificationStatus" class="error-message">
+  <div class="message-container">
+    <h3 class="message-title">Error in Verification</h3>
+    <p class="message-description">{{ verificationStatus }}</p>
+  </div>
+</div>

@@ -1,0 +1,54 @@
+<div class="col-md-12 d-flex justify-content-center align-items-center" style="height: 100vh;">
+  <div class="card card-container">
+    <div  *ngIf="message" class="form-group">
+      <p class="alert alert-danger" style="font-size: 1.25rem;">{{ message }}</p>
+    </div>
+    <div class="two-factor-container">
+      <h2 class="text-center mb-4" style="font-size: 2.5rem;">Two-Factor Authentication</h2>
+
+      <!-- Two-Factor Authentication Form -->
+      
+      <!-- QR Code Display -->
+      <div class="form-group text-center">
+        <img *ngIf="qrCodeBase64" [src]="'data:image/png;base64,' + qrCodeBase64" alt="QR Code" class="img-fluid" style="max-width: 600px; height: auto;" />
+      </div>
+
+      <!-- OTP Code Input -->
+      <div class="form-group">
+        <input  
+          type="text" 
+          [(ngModel)]="otpCode" 
+          (ngModelChange)="verifyOTP()" 
+          placeholder="Enter OTP Code" 
+          class="form-control form-control-lg"
+          style="font-size: 1.25rem; padding: 15px; text-align: center;"
+        />
+      </div>
+      
+
+      <div *ngIf="IscodeCorrect" class="form-group mt-3">
+        <label for="password" class="form-label text-danger fw-bold">Enter Password:</label>
+        <input type="password" [(ngModel)]="password" class="form-control text-center" placeholder="Enter Password" />
+      </div>
+
+      <!-- Verification Message -->
+      <div *ngIf="verificationMessage" class="form-group">
+        <p class="alert alert-danger" style="font-size: 1.25rem;">{{ verificationMessage }}</p>
+      </div>
+
+      <div  *ngIf="errorMessage" class="form-group">
+        <p class="alert alert-danger" style="font-size: 1.25rem;">{{ errorMessage }}</p>
+      </div>
+
+      <!-- Submit Button to Verify OTP -->
+      <div class="form-group text-center"*ngIf="IscodeCorrect">
+        <button type="button" (click)="onSubmit()" class="btn btn-primary btn-lg" style="font-size: 1.5rem; padding: 12px 30px;">Verify</button>
+      </div>
+
+      <!-- Success Message -->
+      <div class="alert alert-success" *ngIf="isLoggedIn" style="font-size: 1.25rem;">
+        Logged in as {{ roles }}.
+      </div>
+    </div>
+  </div>
+</div>

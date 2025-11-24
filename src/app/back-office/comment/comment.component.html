@@ -1,0 +1,35 @@
+<div class="comments-container">
+    <h2 class="comments-title">Comments List</h2>
+
+    <!-- No comments message -->
+    <div *ngIf="comments.length === 0" class="no-comments-message">
+      <p>No comments available.</p>
+    </div>
+
+    <!-- List of comments -->
+    <ul *ngIf="comments.length > 0" class="comments-list">
+      <li *ngFor="let comment of comments" class="comment-item">
+        <div class="comment-content">
+          <span>{{ comment.content }}</span>
+        </div>
+        <span *ngIf="comment.sentiment" class="sentiment-tag" [ngClass]="{
+  'positive-sentiment': comment.sentiment === 'positive',
+  'negative-sentiment': comment.sentiment === 'negative',
+  'neutral-sentiment': comment.sentiment === 'neutral'
+}">
+  {{ comment.sentiment  }}
+</span>
+        <div class="comment-actions">
+          <button class="btn-delete" (click)="deleteComment(comment.id!)">Delete</button>
+          <button class="btn-edit" [routerLink]="['/back-office/edit-comment', comment.id]">Edit</button>
+        </div>
+      </li>
+    </ul>
+
+    <!-- Add comment section -->
+    <h3 class="add-comment-title">Add Comment</h3>
+    <div class="add-comment-form">
+      <input [(ngModel)]="newComment.content" class="input-comment" placeholder="Write a new comment..." />
+      <button class="btn-add" (click)="addComment()">Add</button>
+    </div>
+  </div>

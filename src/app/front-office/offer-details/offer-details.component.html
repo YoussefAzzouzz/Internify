@@ -1,0 +1,97 @@
+<div class="container mt-5">
+  <h2 class="text-center text-primary mb-5">Offer Details</h2>
+
+  <div *ngIf="offer" class="offer-item card shadow-lg border-0 rounded-lg mb-5">
+    <div class="card-body">
+      <h3 class="offer-title text-dark">{{ offer.title }}</h3>
+      <img [src]="offer.image" alt="{{ offer.title }}" class="offer-image mb-3">
+      <p class="offer-description"><strong>Description:</strong> {{ offer.description }}</p>
+      <p class="offer-category"><strong>Category:</strong> {{ offer.category }}</p>
+      <p class="offer-date"><strong>Publication Date:</strong> {{ offer.datePub ? (offer.datePub | date: 'short') : 'N/A' }}</p>
+      <p class="offer-expiry"><strong>Expiration Date:</strong> {{ offer.dateExp ? (offer.dateExp | date: 'short') : 'N/A' }}</p>
+    </div>
+
+    <div class="card-footer bg-light text-center">
+      <button class="btn btn-warning me-3" [routerLink]="['/front-office/edit-offer', offer.id]">
+        <i class="fas fa-edit"></i> Edit
+      </button>
+      <button class="btn btn-danger me-3" (click)="deleteOffer(offer.id)">
+        <i class="fas fa-trash-alt"></i> Delete
+      </button>
+      <button class="btn btn-info me-3" (click)="downloadOfferPdf(offer.id)">
+        <i class="fas fa-file-pdf"></i> Download PDF
+      </button>
+      <button class="btn btn-secondary" (click)="downloadScrapedFile(offer.id)">
+        <i class="fas fa-download"></i> Scrape & Download Company Info
+      </button>
+    </div>
+  </div>
+
+  <!-- Comments Section -->
+  <div class="comments-section">
+    <h3 class="text-secondary mb-3">Comments:</h3>
+    <div *ngFor="let comment of comments">
+      <!-- Show a message when the report count is 3 or more -->
+      <div *ngIf="comment.reportCount < 3" class="comment-item mb-4 p-4 bg-light rounded-lg shadow-sm">
+        <p class="mb-2">{{ comment.content }}</p>
+        <small class="text-muted">Created on: {{ comment.creationDate | date: 'short' }}</small><br />
+        <button class="btn btn-outline-danger btn-sm mt-2" (click)="reportComment(comment.id)">
+          Report ({{ comment.reportCount }})
+        </button>
+      </div>
+
+      <!-- Display a message when comment is reported 3 times -->
+      <div *ngIf="comment.reportCount >= 3" class="comment-item mb-4 p-4 bg-light rounded-lg shadow-sm">
+        <p class="text-muted">This comment is hidden for being reported.</p>
+      </div>
+    </div>
+
+
+    <!-- Add Comment Section -->
+    <div class="add-comment-section mt-4">
+      <h3 class="text-secondary mb-3">Add a Comment:</h3>
+      <div class="d-flex">
+        <input
+          type="text"
+          [(ngModel)]="newComment"
+          class="form-control form-control-sm me-2"
+          placeholder="Write your comment..."
+        />
+        <button class="btn btn-primary btn-sm" (click)="addComment(offer.id)">
+          <i class="fas fa-paper-plane"></i> Post
+        </button>
+      </div>
+      <div *ngIf="errorMessage" class="text-danger mt-2">{{ errorMessage }}</div>
+    </div>
+  </div>
+
+  <!-- Applications Section -->
+  <div *ngIf="applications.length > 0" class="applications-section mt-5">
+    <h3 class="text-secondary mb-3">Applications:</h3>
+    <ul class="list-unstyled">
+      <ng-container *ngFor="let application of applications">
+        <li *ngIf="application.status !== 'Accepted'" class="application-item card mb-4 p-4 shadow-sm">
+          <p><strong>Status:</strong> {{ application.status }}</p>
+          <p><strong>CV:</strong> {{ application.cv }}</p>
+          <p><strong>Motivation Letter:</strong> {{ application.motivationLetter }}</p>
+          <small class="text-muted">Posted on: {{ application.postDate | date: 'short' }}</small>
+          <div class="mt-3">
+            <button class="btn btn-success me-2" (click)="acceptApplication(application.id)">
+              <i class="fas fa-check-circle"></i> Accept
+            </button>
+            <button class="btn btn-danger" (click)="denyApplication(application.id)">
+              <i class="fas fa-times-circle"></i> Deny
+            </button>
+          </div>
+        </li>
+      </ng-container>
+    </ul>
+  </div>
+
+  <!-- Back Button -->
+  <div class="text-center mt-4">
+    <button class="btn btn-outline-secondary px-5 py-3" [routerLink]="['/front-office/internships-offers']">
+      <i class="fas fa-arrow-left"></i> Back to Offer List
+    </button>
+  </div>
+</div>

@@ -1,0 +1,75 @@
+Omar Ben Mahmoud
+.offer-form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.offer-form .form-group {
+  margin-bottom: 15px;
+}
+
+.offer-form label {
+  font-weight: 600;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.offer-form .form-control {
+  width: 100%;
+  padding: 12px;
+  margin: 5px 0 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.offer-form .form-control:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+}
+
+.offer-form .form-control-file {
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.offer-form .btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.offer-form .btn:hover {
+  background-color: #0056b3;
+}
+
+.offer-form .btn:active {
+  background-color: #003f7f;
+}
+
+.offer-form textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 5px 0 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  resize: vertical;
+}
+
+.offer-form textarea:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+}

@@ -1,0 +1,52 @@
+<h2 class="form-title">{{ isEditMode ? 'Update' : 'Add' }} Offer</h2>
+
+<form [formGroup]="offerForm" (ngSubmit)="onSubmit()" class="offer-form">
+  <div class="form-group">
+    <label for="title">Title:</label>
+    <input id="title" type="text" formControlName="title" required class="form-input">
+    <div *ngIf="offerForm.get('title')?.invalid && offerForm.get('title')?.touched" class="error">
+      Title is required (Min: 3 characters).
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="description">Description:</label>
+    <textarea id="description" formControlName="description" required class="form-input"></textarea>
+    <div *ngIf="offerForm.get('description')?.invalid && offerForm.get('description')?.touched" class="error">
+      Description is required (Min: 10 characters).
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="image">Image URL:</label>
+    <input id="image" type="text" formControlName="image" required class="form-input">
+    <div *ngIf="offerForm.get('image')?.invalid && offerForm.get('image')?.touched" class="error">
+      Enter a valid image URL (png, jpg, jpeg).
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="datePub">Publication Date:</label>
+    <input id="datePub" type="date" formControlName="datePub" required class="form-input">
+  </div>
+
+  <div class="form-group">
+    <label for="dateExp">Expiration Date:</label>
+    <input id="dateExp" type="date" formControlName="dateExp" required class="form-input">
+    <div *ngIf="offerForm.errors?.['dateInvalid'] && offerForm.get('dateExp')?.touched" class="error">
+      Expiration date must be after the publication date.
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="category">Category:</label>
+    <input id="category" type="text" formControlName="category" required class="form-input">
+    <div *ngIf="offerForm.get('category')?.invalid && offerForm.get('category')?.touched" class="error">
+      Category is required.
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="offerForm.invalid" class="btn-submit">
+    {{ isEditMode ? 'Update' : 'Add' }} Offer
+  </button>
+</form>

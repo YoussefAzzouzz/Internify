@@ -1,0 +1,42 @@
+<div class="container mt-5">
+    <h2 class="text-center text-primary">Applications List</h2>
+  
+    <table class="table table-bordered table-striped mt-4 custom-table">
+      <thead class="bg-primary text-white">
+      <tr>
+        <th>ID</th>
+        <th>CV</th>
+        <th>Motivation Letter</th>
+        <th>Status</th>
+        <th>Offer ID</th>
+        <th>User ID</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let application of applications">
+        <td>{{ application.id }}</td>
+        <td>{{ application.cv }}</td>
+        <td>{{ application.motivationLetter }}</td>
+        <td>{{ application.status }}</td>
+        <td>{{ application.offerId }}</td>
+        <td>{{ application.userId }}</td>
+        <td>
+          <button class="btn btn-warning btn-sm me-2 custom-button"
+                  (click)="editApplication(application.id)">
+            Edit
+          </button>
+          <button class="btn btn-danger btn-sm custom-button"
+                  (click)="application.id ? deleteApplication(application.id) : null">
+            Delete
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  
+    <div class="text-center mt-4">
+      <button class="btn btn-outline-secondary custom-back-button" [routerLink]="['/back-office/offer']">Back to Offers</button>
+    </div>
+  </div>
+  

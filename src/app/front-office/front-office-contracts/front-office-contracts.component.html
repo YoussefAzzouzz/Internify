@@ -1,0 +1,45 @@
+
+<div class="contract-container">
+  <div class="card shadow-lg p-5">
+    <h2 class="contract-title">Entreprise Contracts</h2>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover contract-table">
+        <thead class="thead-dark">
+        <tr>
+          <th>ID</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let contract of contracts">
+          <td>{{ contract.id }}</td>
+          <td>{{ contract.startDate | date }}</td>
+          <td>{{ contract.endDate | date }}</td>
+          <td>
+              <span class="badge" [ngClass]="getStatusClass(contract.status)">
+                {{ contract.status }}
+              </span>
+          </td>
+          <td>
+            <button class="btn update-btn" [routerLink]="['/front-office/update-contract', contract.id]">
+              Update
+            </button>
+
+            <button class="btn delete-btn" (click)="deleteContract(contract.id)">
+              Delete
+            </button>
+
+            <button class="btn download-btn" (click)="downloadContract(contract.id)">
+              Download
+            </button>
+
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

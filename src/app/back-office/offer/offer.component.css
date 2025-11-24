@@ -1,0 +1,135 @@
+/* Style général */
+.container {
+    max-width: 900px;
+    margin: auto;
+  }
+  
+  /* Style du champ de recherche */
+  .search-form {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .search-form h3 {
+    color: #007bff;
+  }
+  
+  .search-form input {
+    width: 50%;
+    padding: 10px;
+    border: 2px solid #007bff;
+    border-radius: 25px;
+    outline: none;
+    text-align: center;
+    font-size: 16px;
+    transition: 0.3s;
+  }
+  
+  .search-form input:focus {
+    border-color: #0056b3;
+    box-shadow: 0px 0px 10px rgba(0, 91, 187, 0.5);
+  }
+  
+  /* Liste des offres */
+  .demand-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .demand-item {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.3s;
+  }
+  
+  .demand-item:hover {
+    transform: scale(1.02);
+  }
+  
+  /* Titre des offres */
+  .demand-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+  }
+  
+  /* Description */
+  .demand-description {
+    color: #555;
+    margin: 5px 0 0;
+  }
+  
+  /* Actions sur les offres */
+  .demand-actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .btn {
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s;
+  }
+  
+  .btn-view {
+    background: #17a2b8;
+    color: white;
+  }
+  
+  .btn-view:hover {
+    background: #138496;
+  }
+  
+  .btn-update {
+    background: #ffc107;
+    color: black;
+  }
+  
+  .btn-update:hover {
+    background: #e0a800;
+  }
+  
+  .btn-delete {
+    background: #dc3545;
+    color: white;
+  }
+  
+  .btn-delete:hover {
+    background: #c82333;
+  }
+  
+  /* Bouton Ajouter */
+  .btn-add {
+    display: block;
+    width: fit-content;
+    margin: 20px auto;
+    background: #28a745;
+    color: white;
+    font-size: 16px;
+    padding: 12px 20px;
+    border-radius: 25px;
+    transition: 0.3s;
+  }
+  
+  .btn-add:hover {
+    background: #218838;
+    transform: scale(1.05);
+  }
+  
+  /* Message "No offers available" */
+  .alert-warning {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  

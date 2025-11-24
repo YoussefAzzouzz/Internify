@@ -1,0 +1,37 @@
+<br>
+<div class="message-stats">
+  <h2>Conversation Statistics</h2>
+
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+  <div class="stats-container">
+    <div class="stat total-stat">
+      <div class="stat-label">Total Messages</div>
+      <div class="stat-value">{{ totalStats.TOTAL }}</div>
+    </div>
+  </div>
+
+  <div class="types-container">
+    <div class="stat">
+      <div class="stat-label">Images</div>
+      <div class="stat-value">{{ totalStats.IMAGE || 0 }}</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Texts</div>
+      <div class="stat-value">{{ totalStats.TEXT || 0 }}</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">Audios</div>
+      <div class="stat-value">{{ totalStats.AUDIO || 0 }}</div>
+    </div>
+    <div class="stat">
+      <div class="stat-label">PDFs</div>
+      <div class="stat-value">{{ totalStats.PDF || 0 }}</div>
+    </div>
+  </div>
+
+  <div *ngIf="avgTime" class="average-time">
+    <div class="stat-label">Average Time Between Messages</div>
+    <div class="stat-value">{{ avgTime }}</div>
+  </div>
+</div>

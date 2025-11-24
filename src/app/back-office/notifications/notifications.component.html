@@ -1,0 +1,13 @@
+<div class="notification-container">
+  <h3>Notifications</h3>
+  <ul class="notification-list">
+    <li *ngFor="let notification of notifications" class="notification-item">
+      <div class="notification-content">
+        <span class="notification-message">{{ notification.message }}</span>
+        <button class="mark-read-btn" (click)="markAsRead(notification.id)">
+          Mark as Read
+        </button>
+      </div>
+    </li>
+  </ul>
+</div>

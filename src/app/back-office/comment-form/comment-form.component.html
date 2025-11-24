@@ -1,0 +1,23 @@
+<h3 class="form-title">{{ isEditMode ? 'Edit Comment' : 'Add Comment' }}</h3>
+
+<form [formGroup]="commentForm" (ngSubmit)="onSubmit()" class="comment-form">
+  <div class="form-group">
+    <label for="content" class="form-label">Content:</label>
+    <textarea id="content" formControlName="content" required class="form-input"></textarea>
+
+    <!-- Gestion des erreurs -->
+    <div *ngIf="commentForm.get('content')?.touched && commentForm.get('content')?.invalid" class="error">
+      <small *ngIf="commentForm.get('content')?.errors?.['required']">Le commentaire est obligatoire.</small>
+      <small *ngIf="commentForm.get('content')?.errors?.['minlength']">Le commentaire doit contenir au moins 5 caractères.</small>
+      <small *ngIf="commentForm.get('content')?.errors?.['maxlength']">Le commentaire ne peut pas dépasser 500 caractères.</small>
+      <small *ngIf="commentForm.get('content')?.errors?.['whitespace']">Le commentaire ne peut pas être vide.</small>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <button type="submit" class="btn-submit" [disabled]="commentForm.invalid">
+      {{ isEditMode ? 'Save Changes' : 'Add Comment' }}
+    </button>
+    <button type="button" (click)="cancelEdit()" class="btn-cancel">Cancel</button>
+  </div>
+</form>

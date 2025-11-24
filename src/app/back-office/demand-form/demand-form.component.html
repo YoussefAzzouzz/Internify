@@ -1,0 +1,82 @@
+<h2 class="form-title">{{ isEditMode ? 'Update' : 'Add' }} Demand</h2>
+
+<form [formGroup]="demandForm" (ngSubmit)="onSubmit()" class="demand-form">
+  <!-- Title -->
+  <div class="form-group">
+    <label for="title">Title:</label>
+    <input id="title" type="text" formControlName="title" class="form-input"
+           [class.invalid]="demandForm.controls['title'].invalid && demandForm.controls['title'].touched" />
+    <div *ngIf="demandForm.controls['title'].touched && demandForm.controls['title'].invalid" class="error-message">
+      <small *ngIf="demandForm.controls['title'].errors?.['required']">Title is required.</small>
+      <small *ngIf="demandForm.controls['title'].errors?.['minlength']">Title must be at least 5 characters.</small>
+      <small *ngIf="demandForm.controls['title'].errors?.['maxlength']">Title cannot exceed 100 characters.</small>
+    </div>
+  </div>
+
+  <!-- Description -->
+  <div class="form-group">
+    <label for="description">Description:</label>
+    <textarea id="description" formControlName="description" class="form-input"
+              [class.invalid]="demandForm.controls['description'].invalid && demandForm.controls['description'].touched"></textarea>
+    <div *ngIf="demandForm.controls['description'].touched && demandForm.controls['description'].invalid" class="error-message">
+      <small *ngIf="demandForm.controls['description'].errors?.['required']">Description is required.</small>
+      <small *ngIf="demandForm.controls['description'].errors?.['minlength']">Description must be at least 10 characters.</small>
+      <small *ngIf="demandForm.controls['description'].errors?.['maxlength']">Description cannot exceed 1000 characters.</small>
+    </div>
+  </div>
+
+  <!-- Field Dropdown -->
+  <div class="form-group">
+    <label for="field">Field:</label>
+    <select id="field" formControlName="field" class="form-input"
+            [class.invalid]="demandForm.controls['field'].invalid && demandForm.controls['field'].touched">
+      <option value="" disabled selected>Select a field</option>
+      <option value="IT">IT</option>
+      <option value="Marketing">Marketing</option>
+      <option value="HR">HR</option>
+      <option value="Finance">Finance</option>
+    </select>
+    <div *ngIf="demandForm.controls['field'].touched && demandForm.controls['field'].invalid" class="error-message">
+      <small>Field is required.</small>
+    </div>
+  </div>
+
+  <!-- Status Dropdown -->
+  <div class="form-group">
+    <label for="status">Status:</label>
+    <select id="status" formControlName="status" class="form-input"
+            [class.invalid]="demandForm.controls['status'].invalid && demandForm.controls['status'].touched">
+      <option value="" disabled selected>Select a status</option>
+      <option value="Pending">Pending</option>
+      <option value="Approved">Approved</option>
+      <option value="Rejected">Rejected</option>
+    </select>
+    <div *ngIf="demandForm.controls['status'].touched && demandForm.controls['status'].invalid" class="error-message">
+      <small *ngIf="demandForm.controls['status'].errors?.['required']">Status is required.</small>
+      <small *ngIf="demandForm.controls['status'].errors?.['pattern']">Invalid status value.</small>
+    </div>
+  </div>
+  <div>
+    <label for="cv">Upload CV</label>
+    <input id="cv" type="file" (change)="onCvFileChange($event)" />
+  </div>
+  <!-- Map for Selecting Location -->
+  <div class="form-group">
+    <label>Preferred Internship Location:</label>
+    <div id="map" style="height: 400px; border-radius: 8px; margin-top: 10px;"></div>
+    <input type="hidden" formControlName="latitude">
+    <input type="hidden" formControlName="longitude">
+    <div *ngIf="(demandForm.controls['latitude'].touched && demandForm.controls['latitude'].invalid) ||
+                (demandForm.controls['longitude'].touched && demandForm.controls['longitude'].invalid)"
+         class="error-message">
+      <small *ngIf="demandForm.controls['latitude'].errors?.['required'] || demandForm.controls['longitude'].errors?.['required']">
+        Location is required. Please place the marker on the map.
+      </small>
+    </div>
+  </div>
+
+  <!-- Submit Button -->
+  <button type="submit" class="btn-submit" [disabled]="demandForm.invalid">
+    {{ isEditMode ? 'Update' : 'Add' }} Demand
+  </button>
+</form>

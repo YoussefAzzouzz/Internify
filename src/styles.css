@@ -1,0 +1,62 @@
+nav {
+  background-color: #333;
+  padding: 10px;
+}
+
+nav a {
+  color: white;
+  margin-right: 15px;
+  text-decoration: none;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+.custom-snackbar .mdc-snackbar__surface {
+  background: linear-gradient(135deg, #0d47a1, #1976d2) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35) !important;
+  padding: 18px 28px !important;
+  transition: all 0.3s ease-in-out;
+  min-height: 48px !important;
+  animation: fadeIn 0.5s ease-in-out; /* Fade-in animation */
+}
+
+/* Animation keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px); /* Start slightly above */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); /* End at normal position */
+  }
+}
+
+.custom-snackbar .mat-mdc-snack-bar-label {
+  color: #f0f0f0 !important; /* Light text for contrast */
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+}
+
+.custom-snackbar .mat-mdc-snack-bar-action {
+  color: #ff4d4f !important; /* nice red tone */
+  font-size: 18px !important;
+  font-weight: bold;
+  margin-left: 16px;
+  transition: color 0.2s ease-in-out;
+}
+
+.custom-snackbar .mat-mdc-snack-bar-action:hover {
+  color: #ff1a1a !important;
+  text-decoration: none;
+}
+
+
+
+
