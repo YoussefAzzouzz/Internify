@@ -1,5 +1,5 @@
 
-<video src="assets/demo.mp4" controls width="700"></video>
+<video src="Demo.mp4" controls width="700"></video>
 # 🌐 Internify – Frontend System
 
 ## 🏫 Esprit School of Engineering
