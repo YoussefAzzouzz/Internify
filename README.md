@@ -1,5 +1,5 @@
-[![Watch the video](https://raw.githubusercontent.com/YoussefAzzouzz/Internify/Frontend/20251201_1802_Internify Demo Thumbnail_simple_compose_01kbddqmrgewh8y5t4398a1fbe.png)](https://raw.githubusercontent.com/YoussefAzzouzz/Frontend/Demo.mp4)
 
+<video src="assets/demo.mp4" controls width="700"></video>
 # 🌐 Internify – Frontend System
 
 ## 🏫 Esprit School of Engineering
