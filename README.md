@@ -49,5 +49,5 @@ This document outlines the architecture, technologies, and features of the **Int
 
 ---
 ## 🛠️ AI Functionnalities Demo 
-[![Watch the video](https://raw.githubusercontent.com/YoussefAzzouzz/Internify/Frontend/thumbnail.png)](https://raw.githubusercontent.com/YoussefAzzouzz/Internify/Frontend/User Management.mp4)
+[![Watch the video](https://raw.githubusercontent.com/YoussefAzzouzz/Internify/Frontend/thumbnail.png)](https://raw.githubusercontent.com/YoussefAzzouzz/Internify/Frontend/ai_demo.mp4)
 
