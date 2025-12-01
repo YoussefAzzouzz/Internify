@@ -1,4 +1,4 @@
-[![Watch the video]](https://raw.githubusercontent.com/YoussefAzzouzz/Internify/Frontend/video.mp4)
+[![Watch the video](https://raw.githubusercontent.com/YoussefAzzouzz/Internify/Frontend/20251201_1802_Internify Demo Thumbnail_simple_compose_01kbddqmrgewh8y5t4398a1fbe.png)](https://raw.githubusercontent.com/YoussefAzzouzz/Internify/Frontend/video.mp4)
 
 # 🌐 Internify – Frontend System
 
