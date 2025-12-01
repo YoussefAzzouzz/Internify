@@ -1,3 +1,5 @@
+[![Watch the video]](https://raw.githubusercontent.com/YoussefAzzouzz/Internify/Frontend/video.mp4)
+
 # 🌐 Internify – Frontend System
 
 ## 🏫 Esprit School of Engineering
