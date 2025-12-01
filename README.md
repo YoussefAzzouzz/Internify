@@ -1,3 +1,4 @@
+## 🚀 Core Features Demo
 [![Watch the video](https://raw.githubusercontent.com/YoussefAzzouzz/Internify/Frontend/thumbnail.png)](https://raw.githubusercontent.com/YoussefAzzouzz/Internify/Frontend/Demo.mp4)
 # 🌐 Internify – Frontend System
 
@@ -47,5 +48,6 @@ This document outlines the architecture, technologies, and features of the **Int
 | **Authentication** | JWT for frontend authentication          |
 
 ---
-
+## 🛠️ AI Functionnalities Demo 
+[![Watch the video](https://raw.githubusercontent.com/YoussefAzzouzz/Internify/Frontend/thumbnail.png)](https://raw.githubusercontent.com/YoussefAzzouzz/Internify/Frontend/User Management.mp4)
 
